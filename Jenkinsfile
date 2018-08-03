@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('Speak') {
+    stage('Build') {
       when {
         expression {
           params.REQUESTED_ACTION == 'greeting'
