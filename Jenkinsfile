@@ -1,29 +1,23 @@
-node {
-    try {
-        stage('Build') {        
-            echo pwd
-            sh "cd OSM"
-            sh "sudo git pull origin master"
-            echo 'Dev Good'
-        }
-    } catch (e) {
-        echo 'This will run only if failed'
+pipeline {
+    agent any
+    parameters {
+        choice(
+            // choices are a string of newline separated values
+            // https://issues.jenkins-ci.org/browse/JENKINS-41180
+            choices: 'greeting\nsilence',
+            description: '',
+            name: 'REQUESTED_ACTION')
+    }
 
-        // Since we're catching the exception in order to report on it,
-        // we need to re-throw it, to ensure that the build is marked as failed
-        throw e
-    } finally {
-        def currentResult = currentBuild.result ?: 'SUCCESS'
-        if (currentResult == 'UNSTABLE') {
-            echo 'This will run only if the run was marked as unstable'
+    stages {
+        stage ('Speak') {
+            when {
+                // Only say hello if a "greeting" is requested
+                expression { params.REQUESTED_ACTION == 'greeting' }
+            }
+            steps {
+                echo "Hello, bitwiseman!"
+            }
         }
-
-        def previousResult = currentBuild.previousBuild?.result
-        if (previousResult != null && previousResult != currentResult) {
-            echo 'This will run only if the state of the Pipeline has changed'
-            echo 'For example, if the Pipeline was previously failing but is now successful'
-        }
-
-        echo 'This will always run'
     }
 }
