@@ -5,11 +5,12 @@ pipeline {
       when {
         expression {
           params.REQUESTED_ACTION == 'greeting'
+          echo 'Hello There!'
         }
 
       }
       steps {
-        echo 'Hello, bitwiseman!'
+        echo 'Hello There'
       }
     }
   }
