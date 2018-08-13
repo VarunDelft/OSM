@@ -161,7 +161,7 @@ config redirect
 #	option src		lan
 #	option src_dport	22001
 #	option dest		wan
-#	option dest_ip		172.16.1.10
+#	option dest_ip		172.16.1.11
 #	option dest_port	22
 #	option proto		tcp
 #	option target		DNAT
