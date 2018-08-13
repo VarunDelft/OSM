@@ -5,7 +5,7 @@ pipeline {
       when {
         expression {
           params.REQUESTED_ACTION == 'greeting'
-          sshpass -p "admin123" scp -P 8722 FirewallConfig osmadmin@192.168.60.215:LocalConfigCache/FirewallConfig
+          sh "sshpass -p admin123 scp -P 8722 FirewallConfig osmadmin@192.168.60.215:LocalConfigCache/FirewallConfig" 
         }
 
       }
