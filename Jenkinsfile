@@ -2,7 +2,7 @@ pipeline {
   agent any
   environment { 
         def props = readJSON file: 'TestData.json'
-        props.CLIENT_PWD = "\'" + props.CLIENT_PWD + "\'"
+        
   }
   stages {
     stage('Deploy') {
@@ -16,7 +16,9 @@ pipeline {
     
     stage('Prepare For Test') {
       steps {
-        
+        script{
+          props.CLIENT_PWD = "\'" + props.CLIENT_PWD + "\'"
+        }
         
         sh "sshpass -p ${props.CLIENT_PWD} scp  -o 'StrictHostKeyChecking=no' TestServerConnectivity.sh ${props.CLIENT_UID}@${props.CLIENT_IP}:TestScripts/TestServerConnectivity.sh"
         sh "sshpass -p ${props.SERVER_PWD} ssh  -o 'StrictHostKeyChecking=no' ${props.SERVER_UID}@${props.SERVER_IP} webserver/TestServerConnectivity.sh"        
