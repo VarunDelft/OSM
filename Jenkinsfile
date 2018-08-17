@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    props = readJSON file: 'TestData.json'
+    def props = readJSON file: 'TestData.json'
   }
         
         
@@ -19,7 +19,7 @@ pipeline {
     stage('Prepare For Test') {
       steps{
         script{
-          
+          props = readJSON file: 'TestData.json'
           props.CLIENT_PWD = "\'" + props.CLIENT_PWD + "\'"
         }
         
