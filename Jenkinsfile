@@ -9,7 +9,7 @@ pipeline {
           sh "export CLIENT_PWD=`jq .CLIENT_PWD TestData.json`"
           sh "export CLIENT_UID=`jq .CLIENT_UID TestData.json`"
           sh "export CLIENT_IP=`jq .CLIENT_IP TestData.json`"
-          sh "export CLIENT_PWD=\${CLIENT_PWD//\'\"'}"
+          sh "export CLIENT_PWD=\${CLIENT_PWD//\\\"}"
           sh "export CLIENT_UID=\${CLIENT_UID//\'\"'}"
           sh "export CLIENT_IP=\${CLIENT_IP//\'\"'}"
           sh "sshpass -p ${CLIENT_PWD} scp  -o 'StrictHostKeyChecking=no' TestServerConnectivity.sh ${CLIENT_UID}@${CLIENT_IP}:TestScripts/TestServerConnectivity.sh"
