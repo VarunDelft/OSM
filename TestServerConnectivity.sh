@@ -1,4 +1,4 @@
-HTTPS_URL="http://"$1
+HTTPS_URL="http://"$1":8080"
 CURL_CMD="curl -w httpcode=%{http_code}"
 RETURN_CODE=0
 # -m, --max-time <seconds> FOR curl operation
