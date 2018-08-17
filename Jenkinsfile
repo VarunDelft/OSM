@@ -9,6 +9,7 @@ pipeline {
           def props = readJSON file: 'TestData.json'
           props.CLIENT_PWD = "\'" + props.CLIENT_PWD + "\'"
           sh "sshpass -p ${props.CLIENT_PWD} scp  -o 'StrictHostKeyChecking=no' TestServerConnectivity.sh ${props.CLIENT_UID}@${props.CLIENT_IP}:TestScripts/TestServerConnectivity.sh"
+          sh "sshpass -p ${props.CLIENT_PWD} ssh  -o 'StrictHostKeyChecking=no' TestServerConnectivity.sh ${props.SEREVER_IP}"
         }
 
       }
