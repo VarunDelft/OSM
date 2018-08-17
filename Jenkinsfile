@@ -6,6 +6,8 @@ pipeline {
         expression {
           params.REQUESTED_ACTION == 'greeting'
           sh "sshpass -p admin123 scp -P 8722 -o 'StrictHostKeyChecking=no' FirewallConfig osmadmin@192.168.60.215:LocalConfigCache/FirewallConfig" 
+          def a = readFile TestData.json
+          sh "echo ${a}"
           sh "export CLIENT_PWD=`jq .CLIENT_PWD TestData.json`"
           sh "export CLIENT_UID=`jq .CLIENT_UID TestData.json`"
           sh "export CLIENT_IP=`jq .CLIENT_IP TestData.json`"
