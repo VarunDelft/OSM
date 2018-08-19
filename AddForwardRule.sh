@@ -1,4 +1,3 @@
-## LOGIN
 curl_url="http://"$1"/cgi-bin/luci/rpc/auth "
 curl_data = '--data \'{"id": 1,"method":"login","params":["root",""]}\''
 curl_cmd="curl -s "
