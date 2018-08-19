@@ -13,8 +13,11 @@ pipeline {
             curl_url = "http://192.168.60.149/cgi-bin/luci/rpc/auth --data " 
             curl_params =  '\'{"id": 1,"method":"login","params":["root",""]}\''
             curl_cmd = 'curl -s ' + curl_url + curl_params
-          sh "IP=\$(${curl_cmd})"
-            echo "${IP}"
+            sh '''
+                IP=\$(${curl_cmd})"
+                echo "$IP"
+            '''
+            
         }
         
       }
