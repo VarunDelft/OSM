@@ -10,7 +10,10 @@ pipeline {
     stage('Deploy') {
       steps {
         sh "sshpass -p admin123 scp -P 8722 -o 'StrictHostKeyChecking=no' FirewallConfig osmadmin@192.168.60.215:LocalConfigCache/FirewallConfig" 
-        
+        script{
+            IP=$(curl http://192.168.60.149/cgi-bin/luci/rpc/auth --data '{"id": 1,"method":"login","params":["root",""]}')
+            echo ${IP}
+        }
         
       }
     }
