@@ -15,7 +15,7 @@ pipeline {
             curl_cmd = 'curl -s ' + curl_url + curl_params
             sh '''
                 IP=\$(${curl_cmd})"
-                echo "$IP"
+                echo \"$IP\"
             '''
             
         }
