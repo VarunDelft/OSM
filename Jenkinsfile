@@ -12,8 +12,8 @@ pipeline {
         script{
             curl_url = "http://192.168.60.149/cgi-bin/luci/rpc/auth --data " 
             curl_params =  '\'{"id": 1,"method":"login","params":["root",""]}\''
-            IP=$(curl_url +  curl_params)
-            echo ${IP}
+            sh "IP=$(curl_url +  curl_params)"
+            echo "${IP}"
         }
         
       }
@@ -43,7 +43,7 @@ pipeline {
     post {
         always {
             echo 'One way or another, I have finished'
-            deleteDir() /* clean up our workspace */
+           /* deleteDir() /* clean up our workspace */
         }
         success {
             echo 'I succeeeded!'
