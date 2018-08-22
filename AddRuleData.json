@@ -1,0 +1,1 @@
+{"id": "1","method": "section", "params": ["firewall", "redirect", "allowhttp", {"src" : "lan", "src_dport" : "8080", "dest" : "wan", "dest_ip" : "__DEST_IP_TO_CHANGE__", "dest_port" : "80", "proto" : "tcp", "target" : "DNAT"}] }
