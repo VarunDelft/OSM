@@ -36,6 +36,7 @@ CURL_OUTPUT=`echo ${HTTPS_DATA} | ${CURL_CMD_FINAL} 2> /dev/null` || CURL_RETURN
 }
 
 CommitFirewallRule(){
+b=1
 }
 
 #Main Script Start Here
