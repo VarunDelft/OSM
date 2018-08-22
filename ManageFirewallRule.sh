@@ -37,12 +37,25 @@ echo $CURL_OUTPUT
 }
 
 CommitFirewallRule(){
-b=1
+HTTPS_URL="http://"$1"/cgi-bin/luci/rpc/uci?auth="$Result" -d @- "
+HTTPS_DATA=`cat CommitRuleData.json`
+CURL_CMD_FINAL=${CURL_CMD}${CURL_MAX_CONNECTION_TIMEOUT}${HTTPS_URL}"'"${HTTPS_DATA}"'"
+CURL_OUTPUT=`echo ${HTTPS_DATA} | ${CURL_CMD_FINAL} 2> /dev/null` || CURL_RETURN_CODE=$?
+echo $CURL_OUTPUT
+}
+
+ApplyFirewallRule(){
+HTTPS_URL="http://"$1"/cgi-bin/luci/rpc/uci?auth="$Result" -d @- "
+HTTPS_DATA=`cat ApplyRuleData.json`
+CURL_CMD_FINAL=${CURL_CMD}${CURL_MAX_CONNECTION_TIMEOUT}${HTTPS_URL}"'"${HTTPS_DATA}"'"
+CURL_OUTPUT=`echo ${HTTPS_DATA} | ${CURL_CMD_FINAL} 2> /dev/null` || CURL_RETURN_CODE=$?
+echo $CURL_OUTPUT
 }
 
 #Main Script Start Here
 Result=""
 GetAuthorisationCode $1
 AddFirewallRule $1 $2
-CommitFirewallRule
+CommitFirewallRule $1
+ApplyFirewallRule $1
 exit 0
