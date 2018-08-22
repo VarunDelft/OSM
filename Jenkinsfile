@@ -47,6 +47,9 @@ pipeline {
         }
         success {
             echo 'I succeeeded!'
+            sh "git mv FirewallConfig FirewallConfig_b1"
+            sh "git commit -m 'abc'"
+            sh "git push origin master"
         }
         unstable {
             echo 'I am unstable :/'
