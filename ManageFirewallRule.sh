@@ -1,3 +1,6 @@
+#!/bin/bash
+
+GetAuthorisationCode(){
 HTTPS_URL="http://"$1"/cgi-bin/luci/rpc/auth "
 #HTTPS_DATA="{\"id\": 1,\"method\":\"login\",\"params\":[\"root\",\"\"]}"
 HTTPS_DATA="-d @ServerAuthData.json " 
@@ -22,8 +25,10 @@ else
     Result=`echo ${Result} | sed "s/\"//g"`
     #echo "${Result}"
 fi
+}
 
-
+Result=""
+GetAuthorisationCode $1
 HTTPS_URL="http://"$1"/cgi-bin/luci/rpc/uci?auth="$Result" -d @- "
 #HTTPS_DATA=$(cat  '{\"id\": \"1\",\"method\": \"section\", \"params\": [\"firewall\", \"redirect\", \"allowhttp\", {\"src\" : \"lan\", \"src_dport\" : \"8080\", \"dest\" : \"wan\", \"dest_ip\" : \"172.16.1.15\", \"dest_port\" : \"80\", \"proto\" : \"tcp\", \"target\" : \"DNAT\"}] }')
 HTTPS_DATA=`cat AddRuleData.json`
@@ -33,4 +38,7 @@ CURL_CMD_FINAL=${CURL_CMD}${CURL_MAX_CONNECTION_TIMEOUT}${HTTPS_URL}"'"${HTTPS_D
 echo "${CURL_CMD_FINAL}"
 CURL_OUTPUT=`echo ${HTTPS_DATA} | ${CURL_CMD_FINAL} 2> /dev/null` || CURL_RETURN_CODE=$?
 echo $CURL_OUTPUT
+
+
+
 
