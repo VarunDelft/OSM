@@ -14,7 +14,7 @@ pipeline {
             propsconfig = readJSON file: 'FirewallConfig' 
             
         }
-        sh ManageFirewallRule.sh ${propsconfig.FirewallIP}  ${propsconfig.ServerIP}
+        bash "ManageFirewallRule.sh ${propsconfig.FirewallIP}  ${propsconfig.ServerIP}"
         
       }
     }
