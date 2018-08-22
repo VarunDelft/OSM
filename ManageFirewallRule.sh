@@ -1,29 +1,19 @@
 #!/bin/bash
 GetAuthorisationCode(){
 HTTPS_URL="http://"$1"/cgi-bin/luci/rpc/auth "
-#HTTPS_DATA="{\"id\": 1,\"method\":\"login\",\"params\":[\"root\",\"\"]}"
 HTTPS_DATA="-d @ServerAuthData.json " 
-CURL_CMD="curl -H \"Accept: application/json\" -H \"Content-Type:application/json\" -X POST "
 RETURN_CODE=0
-# -m, --max-time <seconds> FOR curl operation
-CURL_MAX_CONNECTION_TIMEOUT=" -m 100 "
-# perform curl operation
-CURL_RETURN_CODE=0
 CURL_CMD_FINAL="${CURL_CMD}${CURL_MAX_CONNECTION_TIMEOUT}${HTTPS_URL}${HTTPS_DATA}" 
-
 CURL_OUTPUT=`${CURL_CMD_FINAL} 2> /dev/null` || CURL_RETURN_CODE=$?
 if [ ${CURL_RETURN_CODE} -ne 0 ]
 then
     RETURN_CODE=1
-#    echo "${CURL_RETURN_CODE}"
-#    echo "${CURL_OUTPUT}"
 else
-    #echo "Curl connection success"
-    # Check http code for curl operation/response in  CURL_OUTPUT
     Result=`echo ${CURL_OUTPUT} | jq .result`
     Result=`echo ${Result} | sed "s/\"//g"`
-    #echo "${Result}"
+    RETURN_CODE=0
 fi
+
 }
 
 
@@ -33,7 +23,12 @@ HTTPS_DATA=`cat AddRuleData.json`
 HTTPS_DATA=${HTTPS_DATA//__DEST_IP_TO_CHANGE__/$1}
 CURL_CMD_FINAL=${CURL_CMD}${CURL_MAX_CONNECTION_TIMEOUT}${HTTPS_URL}"'"${HTTPS_DATA}"'"
 CURL_OUTPUT=`echo ${HTTPS_DATA} | ${CURL_CMD_FINAL} 2> /dev/null` || CURL_RETURN_CODE=$?
-echo $CURL_OUTPUT
+if [ ${CURL_RETURN_CODE} -ne 0 ]
+then
+    RETURN_CODE=1
+else
+    RETURN_CODE=0
+fi
 }
 
 CommitFirewallRule(){
@@ -41,21 +36,58 @@ HTTPS_URL="http://"$1"/cgi-bin/luci/rpc/uci?auth="$Result" -d @- "
 HTTPS_DATA=`cat CommitRuleData.json`
 CURL_CMD_FINAL=${CURL_CMD}${CURL_MAX_CONNECTION_TIMEOUT}${HTTPS_URL}"'"${HTTPS_DATA}"'"
 CURL_OUTPUT=`echo ${HTTPS_DATA} | ${CURL_CMD_FINAL} 2> /dev/null` || CURL_RETURN_CODE=$?
-echo $CURL_OUTPUT
+if [ ${CURL_RETURN_CODE} -ne 0 ]
+then
+    RETURN_CODE=1
+else
+    RETURN_CODE=0
+fi
 }
+
 
 ApplyFirewallRule(){
 HTTPS_URL="http://"$1"/cgi-bin/luci/rpc/uci?auth="$Result" -d @- "
 HTTPS_DATA=`cat ApplyRuleData.json`
 CURL_CMD_FINAL=${CURL_CMD}${CURL_MAX_CONNECTION_TIMEOUT}${HTTPS_URL}"'"${HTTPS_DATA}"'"
 CURL_OUTPUT=`echo ${HTTPS_DATA} | ${CURL_CMD_FINAL} 2> /dev/null` || CURL_RETURN_CODE=$?
-echo $CURL_OUTPUT
+if [ ${CURL_RETURN_CODE} -ne 0 ]
+then
+    RETURN_CODE=1
+else
+    RETURN_CODE=0
+fi
 }
+
 
 #Main Script Start Here
 Result=""
+CURL_CMD="curl -H \"Accept: application/json\" -H \"Content-Type:application/json\" -X POST "
+CURL_MAX_CONNECTION_TIMEOUT=" -m 100 "
+CURL_RETURN_CODE=0
+MAIN_RETURN_CODE=0
+
 GetAuthorisationCode $1
+if [ ${RETURN_CODE} -ne 0 ]
+then
+   exit ${RETURN_CODE}  
+fi
+
 AddFirewallRule $1 $2
+if [ ${RETURN_CODE} -ne 0 ]
+then
+   exit ${RETURN_CODE}
+fi
+
 CommitFirewallRule $1
+if [ ${RETURN_CODE} -ne 0 ]
+then
+   exit ${RETURN_CODE}
+fi
+
 ApplyFirewallRule $1
+if [ ${RETURN_CODE} -ne 0 ]
+then
+   exit ${RETURN_CODE}
+fi
+
 exit 0
