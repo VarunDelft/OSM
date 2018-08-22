@@ -38,3 +38,4 @@ CURL_OUTPUT=`echo ${HTTPS_DATA} | ${CURL_CMD_FINAL} 2> /dev/null` || CURL_RETURN
 Result=""
 GetAuthorisationCode $1
 AddFirewallRule $1
+return 0
