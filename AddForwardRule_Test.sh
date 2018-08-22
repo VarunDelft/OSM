@@ -27,7 +27,7 @@ fi
 HTTPS_URL="http://"$1"/cgi-bin/luci/rpc/uci?auth="$Result" -d @- "
 #HTTPS_DATA=$(cat  '{\"id\": \"1\",\"method\": \"section\", \"params\": [\"firewall\", \"redirect\", \"allowhttp\", {\"src\" : \"lan\", \"src_dport\" : \"8080\", \"dest\" : \"wan\", \"dest_ip\" : \"172.16.1.15\", \"dest_port\" : \"80\", \"proto\" : \"tcp\", \"target\" : \"DNAT\"}] }')
 HTTPS_DATA=`cat AddRuleData.json`
-#HTTPS_DATA=${HTTPS_DATA//\"/\\\"}
+HTTPS_DATA=${HTTPS_DATA//__DEST_IP_TO_CHANGE__/172.16.1.15}
 echo ${HTTPS_DATA}
 CURL_CMD_FINAL=${CURL_CMD}${CURL_MAX_CONNECTION_TIMEOUT}${HTTPS_URL}"'"${HTTPS_DATA}"'"
 echo "${CURL_CMD_FINAL}"
