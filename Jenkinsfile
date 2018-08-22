@@ -2,6 +2,7 @@ pipeline {
   agent any
   environment {
     def props = readJSON file: 'TestData.json'
+    def propsconfig = readJSON file: 'FirewallConfig'
   }
         
         
@@ -10,15 +11,10 @@ pipeline {
     stage('Deploy') {
       steps {
         script{
-            curl_url = "http://192.168.60.149/cgi-bin/luci/rpc/auth --data " 
-            curl_params =  '\'{"id": 1,"method":"login","params":["root",""]}\''
-            curl_cmd = 'curl -s ' + curl_url + curl_params
-            sh '''
-                IP=\$(${curl_cmd})"
-                echo "\\$IP"
-            ''' 
+            propsconfig = readJSON file: 'FirewallConfig' 
             
         }
+        bash ManageFirewallRule.sh ${propsconfig.FirewallIP}  ${propsconfig.ServerIP}
         
       }
     }
