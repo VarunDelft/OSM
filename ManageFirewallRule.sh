@@ -30,7 +30,7 @@ fi
 AddFirewallRule(){
 HTTPS_URL="http://"$1"/cgi-bin/luci/rpc/uci?auth="$Result" -d @- "
 HTTPS_DATA=`cat AddRuleData.json`
-HTTPS_DATA=${HTTPS_DATA//__DEST_IP_TO_CHANGE__/172.16.1.15}
+HTTPS_DATA=${HTTPS_DATA//__DEST_IP_TO_CHANGE__/$1}
 CURL_CMD_FINAL=${CURL_CMD}${CURL_MAX_CONNECTION_TIMEOUT}${HTTPS_URL}"'"${HTTPS_DATA}"'"
 CURL_OUTPUT=`echo ${HTTPS_DATA} | ${CURL_CMD_FINAL} 2> /dev/null` || CURL_RETURN_CODE=$?
 }
@@ -41,5 +41,6 @@ CommitFirewallRule(){
 #Main Script Start Here
 Result=""
 GetAuthorisationCode $1
-AddFirewallRule $1
+AddFirewallRule $1 $2
+CommitFirewallRule
 exit 0
