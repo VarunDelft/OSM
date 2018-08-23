@@ -47,7 +47,7 @@ pipeline {
         }
         success {
             echo 'I succeeeded!'
-            sh "git mv FirewallConfig FirewallConfig_bk_${date '+%Y%m%d%H%M%S'}"
+          sh "git mv FirewallConfig FirewallConfig_bk_`date '+%Y%m%d%H%M%S'`"
             sh "git commit -m 'abc'"
             sh   "git config remote.origin.url https://github.com/prodaptconsulting/OSM.git"
             sh "git config user.email 'jignesh.karnik@prodapt.com'"
