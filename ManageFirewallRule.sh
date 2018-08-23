@@ -85,10 +85,13 @@ then
    exit ${RETURN_CODE}  
 fi
 
-AddFirewallRule $1 $2
-if [ ${RETURN_CODE} -ne 0 ]
+if [ $3 = "Open"]
 then
-   exit ${RETURN_CODE}
+    AddFirewallRule $1 $2
+    if [ ${RETURN_CODE} -ne 0 ]
+    then
+       exit ${RETURN_CODE}
+    fi
 fi
 
 CommitFirewallRule $1
