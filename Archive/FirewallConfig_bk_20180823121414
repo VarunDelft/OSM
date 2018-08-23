@@ -1,0 +1,5 @@
+{
+"mode":"Block",
+"FirewallIP":"192.168.60.149",
+"ServerIP":"172.16.1.15"
+}
