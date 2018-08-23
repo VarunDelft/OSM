@@ -1,7 +1,7 @@
 #!/bin/bash
 GetAuthorisationCode(){
 HTTPS_URL="http://"$1"/cgi-bin/luci/rpc/auth "
-HTTPS_DATA="-d @ServerAuthData.json " 
+HTTPS_DATA="-d @Data\ServerAuthData.json " 
 RETURN_CODE=0
 CURL_CMD_FINAL="${CURL_CMD}${CURL_MAX_CONNECTION_TIMEOUT}${HTTPS_URL}${HTTPS_DATA}" 
 CURL_RETURN_CODE=0
@@ -22,7 +22,7 @@ fi
 
 AddFirewallRule(){
 HTTPS_URL="http://"$1"/cgi-bin/luci/rpc/uci?auth="$Result" -d @- "
-HTTPS_DATA=`cat AddRuleData.json`
+HTTPS_DATA=`cat Data\AddRuleData.json`
 HTTPS_DATA=${HTTPS_DATA//__DEST_IP_TO_CHANGE__/$2}
 CURL_CMD_FINAL=${CURL_CMD}${CURL_MAX_CONNECTION_TIMEOUT}${HTTPS_URL}
 CURL_RETURN_CODE=0
@@ -40,7 +40,7 @@ fi
 
 DeleteFirewallRule(){
 HTTPS_URL="http://"$1"/cgi-bin/luci/rpc/uci?auth="$Result" -d @- "
-HTTPS_DATA=`cat DeleteRuleData.json`
+HTTPS_DATA=`cat Data\DeleteRuleData.json`
 CURL_CMD_FINAL=${CURL_CMD}${CURL_MAX_CONNECTION_TIMEOUT}${HTTPS_URL}
 CURL_RETURN_CODE=0
 CURL_OUTPUT=`echo ${HTTPS_DATA} | ${CURL_CMD_FINAL} 2> /dev/null` || CURL_RETURN_CODE=$?
@@ -57,7 +57,7 @@ fi
 
 CommitFirewallRule(){
 HTTPS_URL="http://"$1"/cgi-bin/luci/rpc/uci?auth="$Result" -d @- "
-HTTPS_DATA=`cat CommitRuleData.json`
+HTTPS_DATA=`cat Data\CommitRuleData.json`
 CURL_CMD_FINAL=${CURL_CMD}${CURL_MAX_CONNECTION_TIMEOUT}${HTTPS_URL}
 CURL_RETURN_CODE=0
 CURL_OUTPUT=`echo ${HTTPS_DATA} | ${CURL_CMD_FINAL} 2> /dev/null` || CURL_RETURN_CODE=$?
@@ -74,7 +74,7 @@ fi
 
 ApplyFirewallRule(){
 HTTPS_URL="http://"$1"/cgi-bin/luci/rpc/uci?auth="$Result" -d @- "
-HTTPS_DATA=`cat ApplyRuleData.json`
+HTTPS_DATA=`cat Data\ApplyRuleData.json`
 CURL_CMD_FINAL=${CURL_CMD}${CURL_MAX_CONNECTION_TIMEOUT}${HTTPS_URL}
 CURL_RETURN_CODE=0
 CURL_OUTPUT=`echo ${HTTPS_DATA} | ${CURL_CMD_FINAL} 2> /dev/null` || CURL_RETURN_CODE=$?
