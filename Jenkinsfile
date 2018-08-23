@@ -48,8 +48,6 @@ pipeline {
         success {
             echo 'I succeeeded!'
             sh "git mv FirewallConfig FirewallConfig_b1"
-            sh "git config --global user.email 'jignesh.karnik@prodapt.com'"
-            sh "git config --global user.name 'prodaptconsulting'"
             sh "git commit -m 'abc'"
             sh "git push origin master"
         }
