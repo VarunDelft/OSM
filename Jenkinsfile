@@ -50,7 +50,7 @@ pipeline {
             sh "git mv FirewallConfig FirewallConfig_b1"
             sh "git commit -m 'abc'"
             sh   "git config remote.origin.url https://github.com/prodaptconsulting/OSM.git"
-          echo "${GIT_ASKPASS}"  
+          
           sh "git config user.email 'jignesh.karnik@prodapt.com'"
             sh "git config user.name 'prodaptconsulting'"
             gitAskPass('MY_GIT_CREDENTIALS', "git push origin master")
