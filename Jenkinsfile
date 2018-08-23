@@ -1,3 +1,4 @@
+@Library('my-shared-library')
 pipeline {
   agent any
   environment {
@@ -53,7 +54,7 @@ pipeline {
           echo "${GIT_ASKPASS}"  
           sh "git config user.email 'jignesh.karnik@prodapt.com'"
             sh "git config user.name 'prodaptconsulting'"
-            sh "git push origin master"
+            gitAskPass('MY_GIT_CREDENTIALS', "git push origin master")
         }
         unstable {
             echo 'I am unstable :/'
