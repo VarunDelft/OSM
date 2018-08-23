@@ -52,7 +52,7 @@ pipeline {
             sh   "git config remote.origin.url https://github.com/prodaptconsulting/OSM.git"
             sh "git config user.email 'jignesh.karnik@prodapt.com'"
             sh "git config user.name 'prodaptconsulting'"
-            git push 'https://prodaptconsulting:thisisgitadmin789$@github.com/prodaptconsulting/OSM.git' master
+            sh "git push 'https://prodaptconsulting:thisisgitadmin789$@github.com/prodaptconsulting/OSM.git' master"
         }
         unstable {
             echo 'I am unstable :/'
