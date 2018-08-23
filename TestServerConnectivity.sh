@@ -15,7 +15,7 @@ else
     echo ${CURL_OUTPUT}
     httpCode=$(echo "${CURL_OUTPUT}" | sed -e 's/.*\httpcode=//')
     
-	if [ $1 = "Open" ]
+	if [ $2 = "Open" ]
 	then
 		if [ ${httpCode} -ne 200 ]; then
 		  echo "Test  failed. Not able to connect to server. return code - ${httpCode}"
@@ -26,7 +26,7 @@ else
 		fi
 	fi
 	
-	if [ $1 = "Block" ]
+	if [ $2 = "Block" ]
 	then
 		if [ ${httpCode} -ne 200 ]; then
 		  echo "Test Success Connection to the server" ${1} "Blocked at port 8080. Http code - "${httpCode}
