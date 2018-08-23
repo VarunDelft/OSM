@@ -85,7 +85,7 @@ then
    exit ${RETURN_CODE}  
 fi
 
-if [ $3 = "Open"]
+if [ $3 = "Open" ]
 then
     AddFirewallRule $1 $2
     if [ ${RETURN_CODE} -ne 0 ]
