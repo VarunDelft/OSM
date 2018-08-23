@@ -49,8 +49,9 @@ pipeline {
             echo 'I succeeeded!'
             sh "git mv FirewallConfig FirewallConfig_b1"
             sh "git commit -m 'abc'"
-            sh  "git config credential.helper store"
             sh   "git config remote.origin.url https://github.com/prodaptconsulting/OSM.git"
+            sh "git config user.email 'jignesh.karnik@prodapt.com'"
+            sh "git config user.name 'prodaptconsulting'"
             sh "git push origin master"
         }
         unstable {
