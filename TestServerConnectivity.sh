@@ -12,11 +12,30 @@ then
 else
     #echo "Curl connection success"
     # Check http code for curl operation/response in  CURL_OUTPUT
-    #echo ${CURL_OUTPUT}
+    echo ${CURL_OUTPUT}
     httpCode=$(echo "${CURL_OUTPUT}" | sed -e 's/.*\httpcode=//')
-    if [ ${httpCode} -ne 200 ]; then
-      #echo "Curl operation/command failed due to server return code - ${httpCode}"
-      RETURN_CODE=1
-      fi
+    
+	if [ $1 = "Open" ]
+	then
+		if [ ${httpCode} -ne 200 ]; then
+		  echo "Test  failed. Not able to connect to server. return code - ${httpCode}"
+		  RETURN_CODE=1
+		else
+		  echo "Test  Success. Connection to the server" ${1} "Successful at port 8080. Http code - "${httpCode}
+		  RETURN_CODE=0
+		fi
+	fi
+	
+	if [ $1 = "Block" ]
+	then
+		if [ ${httpCode} -ne 200 ]; then
+		  echo "Test Success Connection to the server" ${1} "Blocked at port 8080. Http code - "${httpCode}
+		  RETURN_CODE=0
+		else
+		  echo "Test Faiiled. Connection to the server still exists Http code - "${httpCode}
+		  RETURN_CODE=1
+		fi
+	fi
+
 fi
 exit  ${RETURN_CODE}
