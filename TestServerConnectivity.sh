@@ -8,9 +8,18 @@ CURL_RETURN_CODE=0
 CURL_OUTPUT=`${CURL_CMD} ${CURL_MAX_CONNECTION_TIMEOUT} ${HTTPS_URL} 2> /dev/null` || CURL_RETURN_CODE=$?
 if [ ${CURL_RETURN_CODE} -ne 0 ]
 then
-    echo "Curl unsuccessfull"
-	echo ${CURL_RETURN_CODE}
-	RETURN_CODE=1
+    if [ $2 = "Open" ]
+	then
+		  echo "Test  failed. Not able to connect to server. curl return code -" ${CURL_RETURN_CODE}
+		  RETURN_CODE=1
+	fi
+	
+	if [ $2 = "Block" ]
+	then
+		  echo "Test Success. Connection to the server Blocked."
+		  RETURN_CODE=0
+	fi
+
 else
     #echo "Curl connection success"
     # Check http code for curl operation/response in  CURL_OUTPUT
