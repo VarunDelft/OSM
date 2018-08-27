@@ -13,10 +13,15 @@ pipeline {
         script{
             props = readJSON file: 'Test/TestData.json'
             
+            
         }
        
        echo "here"
-        
+       withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '308b3738-d625-4d02-9b25-9dc73758265c',
+                    usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+
+println(env.USERNAME)
+  }
       }
     }
     
