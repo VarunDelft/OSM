@@ -18,7 +18,7 @@ pipeline {
        echo "here"
 	   sh '''
                 set +x
-                echo "${OSMCRED} > ./aa.txt"
+                echo "${OSMCRED_USR} > ./aa.txt"
 				cat ./aa.txt
        '''
 	
