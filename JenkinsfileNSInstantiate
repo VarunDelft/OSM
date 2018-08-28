@@ -18,7 +18,7 @@ pipeline {
        echo "here"
 	   echo "${OSMCRED_USR}"
 	   sh '''
-			   curl -X POST  -d '{"username": "admin", "password": "admin", "project": "admin"}  -H 'Accept: application/json'  -H 'Cache-Control: no-cache' 		-H 'Content-Type: application/json' https://192.168.60.215:8989/osm/admin/v1/tokens 
+			   curl -X POST  -d '{"username": "admin", "password": "admin", "project": "admin"}'  -H 'Accept: application/json'  -H 'Cache-Control: no-cache' 		-H 'Content-Type: application/json' https://192.168.60.215:8989/osm/admin/v1/tokens 
 
        '''
 	
