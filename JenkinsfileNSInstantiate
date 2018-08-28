@@ -18,7 +18,7 @@ pipeline {
        echo "here"
 	   echo "${OSMCRED_USR}"
 	   sh '''
-			   curl -k -X POST  -d '{"username": "${OSMCRED_USR}", "password": "${OSMCRED_PWD}", "project": "admin"}'  -H 'Accept: application/json'  -H 'Cache-Control: no-cache' 		-H 'Content-Type: application/json' https://192.168.60.215:8989/osm/admin/v1/tokens 
+			   curl -k -X POST  -d   -H 'Accept: application/json'  -H 'Cache-Control: no-cache' 		-H 'Content-Type: application/json' https://192.168.60.215:8989/osm/admin/v1/tokens 
 
        '''
 	
@@ -27,4 +27,24 @@ pipeline {
     }
     
   }  
+  
+  post {
+        always {
+            echo 'One way or another, I have finished'
+           /* deleteDir() /* clean up our workspace */
+        }
+        success {
+            echo 'I succeeeded!'
+         
+        }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+            echo 'I failed :('
+        }
+        changed {
+            echo 'Things were different before...'
+        }
+    }
 }
