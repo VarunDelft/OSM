@@ -16,9 +16,13 @@ pipeline {
         }
        
        echo "here"
-	   set +x
-	   echo "${OSMCRED} > ./aa.txt"
-       sh "cat ./aa.txt"	   
+	   sh '''
+                set +x
+                echo "${OSMCRED} > ./aa.txt"
+				sh "cat ./aa.txt"	   
+       '''
+	   
+       
       }
     }
     
