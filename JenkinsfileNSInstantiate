@@ -19,9 +19,9 @@ pipeline {
 	   sh '''
                 set +x
                 echo "${OSMCRED} > ./aa.txt"
-				sh "cat ./aa.txt"	   
+				cat ./aa.txt
        '''
-	   
+	
        
       }
     }
