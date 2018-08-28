@@ -16,6 +16,7 @@ pipeline {
         }
        
        echo "here"
+	   echo "${OSMCRED_USR}"
 	   sh '''
                 set +x
                 echo "${OSMCRED_USR} > ./aa.txt"
