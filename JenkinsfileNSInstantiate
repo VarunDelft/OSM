@@ -18,8 +18,8 @@ pipeline {
         }
        
        echo "here"
-	   echo $OSMCRED_USR
-	   echo $OSMCRED_PWD
+	   echo ${OSMCRED}
+	   
       }
     }
     
