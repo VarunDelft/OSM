@@ -5,8 +5,6 @@ pipeline {
 	OSMCRED = credentials('308b3738-d625-4d02-9b25-9dc73758265c')
     
   }
-        
-        
  
   stages {
     stage('Deploy') {
@@ -18,11 +16,10 @@ pipeline {
         }
        
        echo "here"
-	   echo "${OSMCRED}"
-	   
+	   echo "${OSMCRED} > aa.txt"
+       sh "cat aa.txt"	   
       }
     }
     
-   
-}  
+  }  
 }
