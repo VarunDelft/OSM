@@ -11,8 +11,7 @@ CURL_OUTPUT=`echo $D | curl -k -d @- -m 100 -H "Accept:application/json" -H "Con
 if [ ${CURL_RETURN_CODE} -ne 0 ]
 then
     RETURN_CODE=1
-    echo "error in getting output "
-    echo ${CURL_OUTPUT}
+    echo "error in getting outhorization code for ${CURL_OUTPUT}"
 else
     RETURN_CODE=0
      Result=`echo ${CURL_OUTPUT} | jq .id`
@@ -28,6 +27,7 @@ return $RETURN_CODE
 # $2 = User Name
 # $3 = Password
 
-Authcode=$(GetAuthcode $1 $2 $3)
-echo $Authcode
+Authcode="$(GetAuthcode $1 $2 $3)"
+RETURN_CODE=`echo $?`
+echo "${Authcode}"
 exit $RETURN_CODE
