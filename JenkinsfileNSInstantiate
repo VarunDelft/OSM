@@ -12,7 +12,7 @@ pipeline {
         script{
             props = readJSON file: 'Test/TestData.json'
             def IP = "192.168.60.215:8989"
-			def ret = sh(script: 'Scripts/OSMNSInstantiate.sh ${IP} ${OSMCRED_USR} ${OSMCRED_PWD}', returnStdout: true)
+			def ret = sh(script: 'Scripts/OSMNSInstantiate.sh ${IP} ${OSMCRED_USR} ${OSMCRED_PWD}', returnStdout: true).trim()
 			println ret
             
         }
