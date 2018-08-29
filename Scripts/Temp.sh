@@ -1,30 +1,27 @@
 #!/bin/bash
-
-
-AddFirewallRule(){
-HTTPS_URL="http://"$1"/cgi-bin/luci/rpc/uci?auth= -d @- "
-HTTPS_DATA=`cat Data/OSMAuthRequest.json`
-HTTPS_DATA=${HTTPS_DATA//__USER_NAME__/$2}
-HTTPS_DATA=${HTTPS_DATA//__PASSWORD__/$3}
-CURL_CMD_FINAL=${CURL_CMD}${CURL_MAX_CONNECTION_TIMEOUT}${HTTPS_URL}
+GetAuthcode(){
+D=`cat Data/OSMAuthRequest.json`
+D=${D//__USER_NAME__/$2}
+D=${D//__PASSWORD__/$3}
 CURL_RETURN_CODE=0
-CURL_OUTPUT=`echo ${HTTPS_DATA} | ${CURL_CMD_FINAL} 2> /dev/null` || CURL_RETURN_CODE=$?
-
+CURL_OUTPUT=`echo $D | curl -k -d @- -m 100 -H "Accept:application/json" -H "Content-Type:application/json" -X POST https://$1/osm/admin/v1/tokens 2> /dev/null`  || CURL_RETURN_CODE=$?
 if [ ${CURL_RETURN_CODE} -ne 0 ]
 then
     RETURN_CODE=1
-    echo "error in Adding firewall rule"
+    echo "error in getting output "
     echo ${CURL_OUTPUT}
 else
     RETURN_CODE=0
+     Result=`echo ${CURL_OUTPUT} | jq .id`
+    Result=`echo ${Result} | sed "s/\"//g"` 
+   echo $Result
 fi
 }
 
 
 #Main Script Start Here
-Result=""
-CURL_CMD="curl -k -H \"Accept: application/json\" -H \"Content-Type:application/json\" -X POST "
-CURL_MAX_CONNECTION_TIMEOUT=" -m 100 "
-CURL_RETURN_CODE=0
-MAIN_RETURN_CODE=0
-AddFirewallRule $1 $2 $3
+Authcode=$(GetAuthcode $1 $2 $3)
+echo Authcode
+
+
+
