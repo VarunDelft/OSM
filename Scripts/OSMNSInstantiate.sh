@@ -11,10 +11,11 @@ CURL_OUTPUT=`echo $D | curl -k -d @- -m 100 -H "Accept:application/json" -H "Con
 if [ ${CURL_RETURN_CODE} -ne 0 ]
 then
     RETURN_CODE=1
+	echo $D
     echo "error in getting outhorization code for ${CURL_OUTPUT}"
 else
     RETURN_CODE=0
-     Result=`echo ${CURL_OUTPUT} | jq .id`
+    Result=`echo ${CURL_OUTPUT} | jq .id`
     Result=`echo ${Result} | sed "s/\"//g"` 
    echo $Result
 fi
@@ -29,6 +30,8 @@ return $RETURN_CODE
 
 Authcode="$(GetAuthcode $1 $2 $3)"
 RETURN_CODE=`echo $?`
-echo $1$2$3
-#echo "${Authcode}"
+echo $1
+echo $2
+echo $3
+echo "${Authcode}"
 exit $RETURN_CODE
