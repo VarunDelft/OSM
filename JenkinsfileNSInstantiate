@@ -16,7 +16,7 @@ pipeline {
 			
             
         }
-        echo ${ret}
+        echo "${ret}"
  
 
        
