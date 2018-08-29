@@ -29,4 +29,3 @@ return $RETURN_CODE
 Authcode=$(GetAuthcode $1 $2 $3)
 echo $Authcode
 exit $RETURN_CODE
-
