@@ -2,12 +2,8 @@ pipeline {
   agent any
   environment {
     def props = readJSON file: 'Test/TestData.json'
-	//OSMCRED = credentials('308b3738-d625-4d02-9b25-9dc73758265c')
-	
-    def ret = 'abc'
+	def ret = 'abc'
 	def OSMIP = '192.168.60.215:8989'
-	def OSM_USER = ""
-	def OSM_PWD = ""
   }
  
   stages {
@@ -16,20 +12,11 @@ pipeline {
         script{
             
 			withCredentials([usernamePassword(credentialsId:'308b3738-d625-4d02-9b25-9dc73758265c', passwordVariable:'PASSWORD', usernameVariable:'USER')]) { 
-				echo "${PASSWORD}" // password is masked
-				ret = sh(script: "Scripts/OSMNSInstantiate.sh ${OSMIP} ${USER} ${PASSWORD}", returnStdout: true).trim()
+				ret = sh(script: "Scripts/OSMAuthCode.sh ${OSMIP} ${USER} ${PASSWORD}", returnStdout: true).trim()
 			}
-			
-			
-			
+		
         }
-        
-
-       
       }
-	  
-	  
-	  
     }
     
 	stage('Create_NS'){
