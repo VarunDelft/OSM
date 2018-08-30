@@ -8,7 +8,8 @@ D="{
 }"
 RETURN_CODE=0
 CURL_RETURN_CODE=0
-Abc='curl -k -d @- -m 100 -H "Accept:application/json" -H "Authorization: Bearer ${1}" -H "Content-Type:application/json" -X POST https://{$2}/osm/admin/v1/tokens'
+#Abc='curl -k -d @- -m 100 -H "Accept:application/json" -H "Authorization: Bearer ${1}" -H "Content-Type:application/json" -X POST https://{$2}/osm/admin/v1/tokens'
+Abc="curl -k -d @- -m 100 -H \"Accept:application/json\" -H \"Authorization: Bearer $1\" -H \"Content-Type:application/json\" -X POST https://$2/osm/nslcm/v1/ns_instances/$7/instantiate"
 CURL_OUTPUT=`echo $D | curl -k -d @- -m 100 -H "Accept:application/json" -H "Authorization: Bearer $1" -H "Content-Type:application/json" -X POST https://$2/osm/nslcm/v1/ns_instances/$7/instantiate 2> /dev/null`  || CURL_RETURN_CODE=$?
 if [ ${CURL_RETURN_CODE} -ne 0 ]
 then
@@ -22,6 +23,7 @@ else
     if [ ${StatusCode} -ne 201 ]
     then
        RETURN_CODE=1
+       echo $D
        echo "${CURL_OUTPUT}"
        echo "${Abc}"
        echo "Error in Creating Network Service"

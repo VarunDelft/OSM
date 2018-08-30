@@ -25,7 +25,7 @@ else
        Result=`echo ${CURL_OUTPUT} | jq .id`
        Result=`echo ${Result} | sed "s/\"//g"`
        echo "${Result}"
-       #echo "${CURL_OUTPUT}"
+       echo "${CURL_OUTPUT}"
     else
         if [ ${StatusCode} -ne 201 ]
         then
