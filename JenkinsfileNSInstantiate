@@ -23,7 +23,8 @@ pipeline {
 		steps{
 			echo "Create_NS Stage" 
 			script{
-				p = readJSON file : 'NSInstantiateConfig'
+				p = readJSON file : 'NSInstantiateConfig' //properties
+				echo "${p.OSM_IP_PORT}"
 				NSid = sh(script: "Scripts/OSMNSInstantiate.sh ${ret} ${p.OSM_IP_PORT} ${p.NS_DESCRIPTOR_ID} ${p.NS_NAME} ${p.NS_DESCRIPTION} ${p.OPEN_STACK_ACCOUNTID}",returnStdout: true).trim()
 				echo "${NSid}"
 			}
