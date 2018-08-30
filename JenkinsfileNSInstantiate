@@ -4,23 +4,39 @@ pipeline {
     def props = readJSON file: 'Test/TestData.json'
 	OSMCRED = credentials('308b3738-d625-4d02-9b25-9dc73758265c')
     def ret = 'abc'
+	def OSMIP = '192.168.60.215:8989'
+	def OSM_USER = ""
+	def OSM_PWD = ""
   }
  
   stages {
-    stage('Deploy') {
+    stage('GetAuth') {
       steps {
         script{
             props = readJSON file: 'Test/TestData.json'
-            def IP = '192.168.60.215:8989'
-			ret = sh(script: "Scripts/OSMNSInstantiate.sh ${IP} admin admin", returnStdout: true).trim()
+			OSM_USER = "${OSMCRED_USR}"
+			OSM_PWD = "${OSMCRED_PWD}"
+			
+			ret = sh(script: "Scripts/OSMNSInstantiate.sh ${OSMIP} admin admin", returnStdout: true).trim()
         }
-        echo "${ret}"
+        echo "${OSMCRED}"
+		echo "${OSMCRED_USR}"
+		echo "${OSMCRED_PWD}"
+		echo "${ret}"
  
 
        
       }
+	  
+	  
+	  
     }
     
+	stage('Create_NS'){
+		steps{
+			echo "Create_NS Stage" 
+		}
+	}
   }  
   
   post {
