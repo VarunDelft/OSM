@@ -17,7 +17,7 @@ then
     echo "error in getting outhorization code for ${CURL_OUTPUT}"
 else
     RETURN_CODE=0
-    StatusCode=`echo ${CURL_OUTPUT} | jq .Status`
+    StatusCode=`echo ${CURL_OUTPUT} | jq .status`
     StatusCode=`echo ${StatusCode} | sed "s/\"//g"`
     if [ ${StatusCode} -ne 201 ]
     then
