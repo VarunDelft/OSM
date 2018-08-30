@@ -44,13 +44,11 @@ pipeline {
 		}
 	}
 
-	stage('Get NS De'){
+	stage('Get NS Detials'){
 		steps{
-			echo "Instantiate_NS Stage" 
+			echo "Get NS Detials Stage" 
 			script{
-				
-				
-				NSInstanceID = sh(script: "Scripts/OSMNSInstantiate.sh '${ret}' '${p.OSM_IP_PORT}' '${p.NS_DESCRIPTOR_ID}' '${p.NS_NAME}' '${p.NS_DESCRIPTION}' '${p.OPEN_STACK_ACCOUNTID}' '${NSid}'",returnStdout: true).trim()
+				NSInstanceID = sh(script: "Scripts/OSMNSGetDetails.sh '${ret}' '${p.OSM_IP_PORT}' '${NSid}'",returnStdout: true).trim()
 				echo "${NSInstanceID}"
 			}
 		}
