@@ -3,9 +3,7 @@ pipeline {
   environment {
     def props = readJSON file: 'Test/TestData.json'
 	//OSMCRED = credentials('308b3738-d625-4d02-9b25-9dc73758265c')
-	withCredentials([usernamePassword(credentialsId:'testCredentials', passwordVariable:'PASSWORD', usernameVariable:'USER')]) { 
-   echo '${PASSWORD}' // password is masked
-	}
+	
     def ret = 'abc'
 	def OSMIP = '192.168.60.215:8989'
 	def OSM_USER = ""
@@ -16,17 +14,20 @@ pipeline {
     stage('GetAuth') {
       steps {
         script{
-            props = readJSON file: 'Test/TestData.json'
-			OSM_USER = "${OSMCRED_USR}"
-			OSM_PWD = "${OSMCRED_PWD}"
+            
+			withCredentials([usernamePassword(credentialsId:'testCredentials', passwordVariable:'PASSWORD', usernameVariable:'USER')]) { 
+				echo '${PASSWORD}' // password is masked
+			}
+			
+			props = readJSON file: 'Test/TestData.json'
+			//OSM_USER = "${OSMCRED_USR}"
+			//OSM_PWD = "${OSMCRED_PWD}"
 			
 			ret = sh(script: "Scripts/OSMNSInstantiate.sh ${OSMIP} admin admin", returnStdout: true).trim()
         }
-        echo "${OSMCRED}"
-		echo "${OSMCRED_USR}"
-		echo "${OSMCRED_PWD}"
-		echo "${ret}"
- 
+        echo "${USER}"
+        echo "${PASSWORD}"
+
 
        
       }
