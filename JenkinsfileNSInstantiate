@@ -10,8 +10,9 @@ pipeline {
     stage('GetAuth') {
       steps {
         script{
-            
+            p = readJSON file : 'NSInstantiateConfig' //properties
 			withCredentials([usernamePassword(credentialsId:'308b3738-d625-4d02-9b25-9dc73758265c', passwordVariable:'PASSWORD', usernameVariable:'USER')]) { 
+				
 				ret = sh(script: "Scripts/OSMAuthCode.sh ${p.OSM_IP_PORT} ${USER} ${PASSWORD}", returnStdout: true).trim()
 			}
 		
@@ -23,8 +24,8 @@ pipeline {
 		steps{
 			echo "Create_NS Stage" 
 			script{
-				p = readJSON file : 'NSInstantiateConfig' //properties
-				echo "${p.OSM_IP_PORT}"
+				
+				
 				NSid = sh(script: "Scripts/OSMNSInstantiate.sh ${ret} ${p.OSM_IP_PORT} ${p.NS_DESCRIPTOR_ID} ${p.NS_NAME} ${p.NS_DESCRIPTION} ${p.OPEN_STACK_ACCOUNTID}",returnStdout: true).trim()
 				echo "${NSid}"
 			}
