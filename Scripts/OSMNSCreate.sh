@@ -25,6 +25,7 @@ else
        Result=`echo ${CURL_OUTPUT} | jq .id`
        Result=`echo ${Result} | sed "s/\"//g"`
        echo "${Result}"
+       #echo "${CURL_OUTPUT}"
     else
         if [ ${StatusCode} -ne 201 ]
         then
@@ -34,6 +35,7 @@ else
         else
            Result=`echo ${CURL_OUTPUT} | jq .id`
            Result=`echo ${Result} | sed "s/\"//g"`
+           #echo $CURL_OUTPUT
            echo $Result
         fi
     fi
@@ -52,5 +54,5 @@ return $RETURN_CODE
 
 NSID=$(CreateNS "${1}" "${2}" "$3" "$4" "$5" "$6")
 RETURN_CODE=`echo $?`
-echo ${NSID}
+echo "${NSID}"
 exit $RETURN_CODE
