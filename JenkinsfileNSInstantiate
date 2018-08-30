@@ -15,7 +15,7 @@ pipeline {
       steps {
         script{
             
-			withCredentials([usernamePassword(credentialsId:'testCredentials', passwordVariable:'PASSWORD', usernameVariable:'USER')]) { 
+			withCredentials([usernamePassword(credentialsId:'308b3738-d625-4d02-9b25-9dc73758265c', passwordVariable:'PASSWORD', usernameVariable:'USER')]) { 
 				echo '${PASSWORD}' // password is masked
 			}
 			
