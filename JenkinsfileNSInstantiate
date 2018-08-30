@@ -26,7 +26,7 @@ pipeline {
 			script{
 				
 				
-				NSid = sh(script: "Scripts/OSMNSInstantiate.sh ${ret} ${p.OSM_IP_PORT} ${p.NS_DESCRIPTOR_ID} ${p.NS_NAME} ${p.NS_DESCRIPTION} ${p.OPEN_STACK_ACCOUNTID}",returnStdout: true).trim()
+				NSid = sh(script: "Scripts/OSMNSInstantiate.sh '${ret}' '${p.OSM_IP_PORT}' '${p.NS_DESCRIPTOR_ID}' '${p.NS_NAME}' '${p.NS_DESCRIPTION}' '${p.OPEN_STACK_ACCOUNTID}'",returnStdout: true).trim()
 				echo "${NSid}"
 			}
 		}
