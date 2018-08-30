@@ -20,17 +20,24 @@ else
     RETURN_CODE=0
     StatusCode=`echo ${CURL_OUTPUT} | jq .status`
     StatusCode=`echo ${StatusCode} | sed "s/\"//g"`
-    if [ ${StatusCode} -ne 201 ]
+        if [ -z ${Statuscode} ]
     then
-       RETURN_CODE=1
-       echo $D
-       echo "${CURL_OUTPUT}"
-       echo "${Abc}"
-       echo "Error in Creating Network Service"
-    else
        Result=`echo ${CURL_OUTPUT} | jq .id`
        Result=`echo ${Result} | sed "s/\"//g"`
-       echo $Result
+       echo "${Result}"
+       #echo "${CURL_OUTPUT}"
+    else
+        if [ ${StatusCode} -ne 201 ]
+        then
+           RETURN_CODE=1
+           echo "${CURL_OUTPUT}"
+           echo "Error in Creating Network Service"
+        else
+           Result=`echo ${CURL_OUTPUT} | jq .id`
+           Result=`echo ${Result} | sed "s/\"//g"`
+           #echo $CURL_OUTPUT
+           echo $Result
+        fi
     fi
 fi
 return $RETURN_CODE
