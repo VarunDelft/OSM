@@ -35,6 +35,7 @@ pipeline {
 	stage('Create_NS'){
 		steps{
 			echo "Create_NS Stage" 
+			echo "{$ret}"
 		}
 	}
   }  
