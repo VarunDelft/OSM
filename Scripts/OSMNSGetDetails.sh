@@ -13,7 +13,9 @@ then
 else
     #echo $Abc
     RETURN_CODE=0
-    Result="${CURL_OUTPUT}"
+    #Result="${CURL_OUTPUT}"
+	Result=`echo ${CURL_OUTPUT} | jq .constituent-vnfr-ref[1]`
+    Result=`echo ${Result} | sed "s/\"//g"`
     echo "$Result"
 fi
 return $RETURN_CODE
