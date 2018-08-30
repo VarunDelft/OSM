@@ -17,17 +17,25 @@ then
     echo "error in getting outhorization code for ${CURL_OUTPUT}"
 else
     RETURN_CODE=0
+    #echo ${CURL_OUTPUT}
     StatusCode=`echo ${CURL_OUTPUT} | jq .status`
     StatusCode=`echo ${StatusCode} | sed "s/\"//g"`
-    if [ ${StatusCode} -ne 201 ]
+    if [ -z ${Statuscode} ]
     then
-       RETURN_CODE=1
-       echo "${CURL_OUTPUT}"
-       echo "Error in Creating Network Service"
-    else
        Result=`echo ${CURL_OUTPUT} | jq .id`
        Result=`echo ${Result} | sed "s/\"//g"`
-       echo $Result
+       echo "${Result}"
+    else
+        if [ ${StatusCode} -ne 201 ]
+        then
+           RETURN_CODE=1
+           echo "${CURL_OUTPUT}"
+           echo "Error in Creating Network Service"
+        else
+           Result=`echo ${CURL_OUTPUT} | jq .id`
+           Result=`echo ${Result} | sed "s/\"//g"`
+           echo $Result
+        fi
     fi
 fi
 return $RETURN_CODE
