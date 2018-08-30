@@ -1,11 +1,11 @@
 #!/bin/sh
 CreateNS(){
-D='{ 
-  "nsdId": "$3", 
-  "nsName": "$4", 
-  "nsDescription": "$5", 
-  "vimAccountId": "$6" 
-}'
+D="{ 
+  \"nsdId\": \"$3\", 
+  \"nsName\": \"$4\", 
+  \"nsDescription\": \"$5\", 
+  \"vimAccountId\": \"$6\" 
+}"
 RETURN_CODE=0
 CURL_RETURN_CODE=0
 CURL_OUTPUT=`echo $D | curl -k -d @- -m 100 -H "Accept:application/json" -H 'Authorization: Bearer $1' -H "Content-Type:application/json" -X POST https://$2/osm/admin/v1/tokens 2> /dev/null`  || CURL_RETURN_CODE=$?
@@ -18,7 +18,8 @@ else
     RETURN_CODE=0
     Result=`echo ${CURL_OUTPUT} | jq .id`
     Result=`echo ${Result} | sed "s/\"//g"` 
-   echo $Result
+    echo $D
+    echo $Result
 fi
 return $RETURN_CODE
 }
@@ -32,7 +33,7 @@ return $RETURN_CODE
 # $5 = nsDescription
 # $6 = vimAccountId
 
-NSID="$(CreateNS $1 $2 $3 $4 $5 $6)"
+NSID=$(CreateNS "${1}" "${2}" "$3" "$4" "$5" "$6")
 RETURN_CODE=`echo $?`
-echo "${NSID}"
+echo ${NSID}
 exit $RETURN_CODE
