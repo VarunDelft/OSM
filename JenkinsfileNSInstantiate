@@ -26,8 +26,20 @@ pipeline {
 			script{
 				
 				
-				NSid = sh(script: "Scripts/OSMNSInstantiate.sh '${ret}' '${p.OSM_IP_PORT}' '${p.NS_DESCRIPTOR_ID}' '${p.NS_NAME}' '${p.NS_DESCRIPTION}' '${p.OPEN_STACK_ACCOUNTID}'",returnStdout: true).trim()
+				NSid = sh(script: "Scripts/OSMNSCreate.sh '${ret}' '${p.OSM_IP_PORT}' '${p.NS_DESCRIPTOR_ID}' '${p.NS_NAME}' '${p.NS_DESCRIPTION}' '${p.OPEN_STACK_ACCOUNTID}'",returnStdout: true).trim()
 				echo "${NSid}"
+			}
+		}
+	}
+	
+	stage('Instantiate NS'){
+		steps{
+			echo "Instantiate_NS Stage" 
+			script{
+				
+				
+				NSInstanceID = sh(script: "Scripts/OSMNSInstantiate.sh '${ret}' '${p.OSM_IP_PORT}' '${p.NS_DESCRIPTOR_ID}' '${p.NS_NAME}' '${p.NS_DESCRIPTION}' '${p.OPEN_STACK_ACCOUNTID}' '${NSid}'",returnStdout: true).trim()
+				echo "${NSInstanceID}"
 			}
 		}
 	}

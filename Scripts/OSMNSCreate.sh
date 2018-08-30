@@ -1,5 +1,5 @@
 #!/bin/sh
-InstantiateNS(){
+CreateNS(){
 D="{ 
   \"nsdId\": \"$3\", 
   \"nsName\": \"$4\", 
@@ -9,7 +9,7 @@ D="{
 RETURN_CODE=0
 CURL_RETURN_CODE=0
 Abc='curl -k -d @- -m 100 -H "Accept:application/json" -H "Authorization: Bearer $1" -H "Content-Type:application/json" -X POST https://$2/osm/admin/v1/tokens'
-CURL_OUTPUT=`echo $D | curl -k -d @- -m 100 -H "Accept:application/json" -H "Authorization: Bearer $1" -H "Content-Type:application/json" -X POST https://$2/osm/nslcm/v1/ns_instances/$7/instantiate 2> /dev/null`  || CURL_RETURN_CODE=$?
+CURL_OUTPUT=`echo $D | curl -k -d @- -m 100 -H "Accept:application/json" -H "Authorization: Bearer $1" -H "Content-Type:application/json" -X POST https://$2/osm/admin/v1/tokens 2> /dev/null`  || CURL_RETURN_CODE=$?
 if [ ${CURL_RETURN_CODE} -ne 0 ]
 then
     RETURN_CODE=1
@@ -41,9 +41,8 @@ return $RETURN_CODE
 # $4 = nsName
 # $5 = nsDescription
 # $6 = vimAccountId
-# $7 = Instance id of the network service
 
-NSInstanceID=$(InstantiateNS "${1}" "${2}" "$3" "$4" "$5" "$6" "$7")
+NSID=$(CreateNS "${1}" "${2}" "$3" "$4" "$5" "$6")
 RETURN_CODE=`echo $?`
-echo ${NSInstanceID}
+echo ${NSID}
 exit $RETURN_CODE
