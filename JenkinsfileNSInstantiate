@@ -16,18 +16,14 @@ pipeline {
         script{
             
 			withCredentials([usernamePassword(credentialsId:'308b3738-d625-4d02-9b25-9dc73758265c', passwordVariable:'PASSWORD', usernameVariable:'USER')]) { 
-				echo '${PASSWORD}' // password is masked
+				echo "${PASSWORD}" // password is masked
+				ret = sh(script: "Scripts/OSMNSInstantiate.sh ${OSMIP} ${USER} ${PASSWORD}", returnStdout: true).trim()
 			}
 			
-			props = readJSON file: 'Test/TestData.json'
-			//OSM_USER = "${OSMCRED_USR}"
-			//OSM_PWD = "${OSMCRED_PWD}"
 			
-			ret = sh(script: "Scripts/OSMNSInstantiate.sh ${OSMIP} admin admin", returnStdout: true).trim()
+			
         }
-        echo "${USER}"
-        echo "${PASSWORD}"
-
+        
 
        
       }
