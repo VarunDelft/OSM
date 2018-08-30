@@ -19,7 +19,7 @@ else
     RETURN_CODE=0
     StatusCode=`echo ${CURL_OUTPUT} | jq .Status`
     StatusCode=`echo ${StatusCode} | sed "s/\"//g"`
-    if [ ${StatusCode} -ne 201]
+    if [ ${StatusCode} -ne 201 ]
     then
        RETURN_CODE=1
        echo "${CURL_OUTPUT}"
