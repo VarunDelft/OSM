@@ -39,7 +39,7 @@ pipeline {
 				
 				
 				NSInstanceID = sh(script: "Scripts/OSMNSInstantiate.sh '${ret}' '${p.OSM_IP_PORT}' '${p.NS_DESCRIPTOR_ID}' '${p.NS_NAME}' '${p.NS_DESCRIPTION}' '${p.OPEN_STACK_ACCOUNTID}' '${NSid}'",returnStdout: true).trim()
-				writeFile file: "Data/GetIPsData.json", text:"${NSInstanceID}"
+				echo "${NSInstanceID}"
 			}
 		}
 	}
@@ -49,7 +49,7 @@ pipeline {
 			echo "Get NS Detials Stage" 
 			script{
 				NSDetailsJson = sh(script: "Scripts/OSMNSGetDetails.sh '${ret}' '${p.OSM_IP_PORT}' '${NSid}'",returnStdout: true).trim()
-				echo "${NSDetailsJson}" >> Data/GetIPsData.json
+				writeFile file: "Data/GetIPsData.json", text:"${NSDetailsJson}"
 			}
 		}
 	}
@@ -57,7 +57,7 @@ pipeline {
 		steps{
 			echo "Get VNF Details" 
 			script{
-				VNFIPAddresses = sh(script: "Scripts/OSMNSGetIPs.sh '${ret}' '${p.OSM_IP_PORT}' '${NSDetailsJson}'",returnStdout: true).trim()
+				VNFIPAddresses = sh(script: "Scripts/OSMNSGetIPs.sh '${ret}' '${p.OSM_IP_PORT}' ",returnStdout: true).trim()
 				echo "${VNFIPAddresses}"
 			}
 		}
