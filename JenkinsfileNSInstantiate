@@ -4,7 +4,7 @@ pipeline {
     def props = readJSON file: 'Test/TestData.json'
 	def p = readJSON file : 'NSInstantiateConfig'
 	def ret = 'abc'
-	def IPs = new String[3]
+	def IPs = ['a','b','c','d']
 	
   }
  
