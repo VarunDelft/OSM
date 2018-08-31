@@ -81,6 +81,7 @@ pipeline {
 			echo "Prepare Instance specifc files" 
 			script{
 				td = readJSON file:  'Data/Templates/TestDataTemplate.json'
+				echo "${td}"
 				td = td.replace("__FIREWALL_EXT_IP__","${Ips[0]}")
 				td = td.replace("__SERVER_EXT_IP__","${Ips[2]}")
 				sh  "mkdir ${p.NS_NAME}"
