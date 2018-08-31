@@ -4,6 +4,8 @@ pipeline {
     def props = readJSON file: 'Test/TestData.json'
 	def p = readJSON file : 'NSInstantiateConfig'
 	def ret = 'abc'
+	def IPs
+	
   }
  
   stages {
@@ -59,6 +61,11 @@ pipeline {
 			script{
 				VNFIPAddresses = sh(script: "Scripts/OSMNSGetIPs.sh '${ret}' '${p.OSM_IP_PORT}' ",returnStdout: true).trim()
 				echo "${VNFIPAddresses}"
+				Ips = ${VNFIPAddresses}.split(',')
+				echo $IPs[0]
+				echo $IPs[1]
+				echo $IPs[2]
+				echo $IPs[3]
 			}
 		}
 	}
