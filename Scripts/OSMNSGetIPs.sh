@@ -20,8 +20,8 @@ else
     #echo $5
     InternalIP=`echo ${CURL_OUTPUT} | jq -r .vdur[0].interfaces[$4].\"ip-address\"`
     ExternalIP=`echo ${CURL_OUTPUT} | jq -r .vdur[0].interfaces[$5].\"ip-address\"`
-    echo "$InternalIP"
-    echo "$ExternalIP"
+    echo "${InternalIP},${ExternalIP}"
+    
     #echo "${CURL_OUTPUT}"
 fi
 return $RETURN_CODE
@@ -45,9 +45,9 @@ ServerMgmtIndex=$(expr `echo ${D} | jq -r .ServerMgmtIndex` + 0 )
 ServerPrvIndex=$(expr `echo ${D} | jq -r .ServerPrvIndex` + 0 )
 FirewallIPDetails="$(GetIPs $1 $2 $FirewallId $FirewallMgmtIndex $FirewallPrvIndex)"
 RETURN_CODE=`echo $?`
-echo "${FirewallIPDetails}"
+#echo "${FirewallIPDetails}"
 ServerIPDetails="$(GetIPs $1 $2 $ServerId $ServerMgmtIndex $ServerPrvIndex)"
 RETURN_CODE=`echo $?`
-echo "${ServerIPDetails}"
+echo "${FirewallIPDetails},${ServerIPDetails}"
 exit $RETURN_CODE
 
