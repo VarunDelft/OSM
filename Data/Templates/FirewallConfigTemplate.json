@@ -1,0 +1,5 @@
+{
+"mode":"__MODE__",
+"FirewallIP":"__FIREWALL_EXT_IP__",
+"ServerIP":"__SERVER_INT_IP__"
+}
