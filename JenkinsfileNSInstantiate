@@ -48,8 +48,8 @@ pipeline {
 		steps{
 			echo "Get NS Detials Stage" 
 			script{
-				NSInstanceID = sh(script: "Scripts/OSMNSGetDetails.sh '${ret}' '${p.OSM_IP_PORT}' '${NSid}'",returnStdout: true).trim()
-				echo "${NSInstanceID}"
+				NSDetailsJson = sh(script: "Scripts/OSMNSGetDetails.sh '${ret}' '${p.OSM_IP_PORT}' '${NSid}'",returnStdout: true).trim()
+				echo "${NSDetailsJson}"
 			}
 		}
 	}
@@ -57,7 +57,7 @@ pipeline {
 		steps{
 			echo "Get VNF Details" 
 			script{
-				VNFIPAddresses = sh(script: "Scripts/OSMNSGetIPs.sh '${ret}' '${p.OSM_IP_PORT}'",returnStdout: true).trim()
+				VNFIPAddresses = sh(script: "Scripts/OSMNSGetIPs.sh '${ret}' '${p.OSM_IP_PORT}' '${NSDetailsJson}'",returnStdout: true).trim()
 				echo "${VNFIPAddresses}"
 			}
 		}

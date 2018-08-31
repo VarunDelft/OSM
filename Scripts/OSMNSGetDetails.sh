@@ -30,5 +30,7 @@ return $RETURN_CODE
 
 NSDetails="$(GetNSDetails $1 $2 $3)"
 RETURN_CODE=`echo $?`
+NSDetails='{"FirewallId":"3e1379fd-f296-4ecc-930a-e4be07992ea3","ServerId":"fd949c1b-ce18-4abc-bb9c-7f4fc352ebdf","FirewallMgmtIndex":"0","FirewallPrvIndex":"1","ServerMgmtIndex":"0","ServerPrvIndex":"1"}'
 echo "${NSDetails}"
+
 exit $RETURN_CODE

@@ -31,9 +31,10 @@ return $RETURN_CODE
 #Main Script Start Here
 # $1 = Authorisation code
 # $2 = OSM IP address:Port
+# $3 = NSInstanceDetails
 
-
-D=`cat  Data/OSMGetIPsData.json`
+#D=`cat  Data/OSMGetIPsData.json`
+D="{$3}"
 FirewallId=`echo ${D} | jq -r .FirewallId`
 ServerId=`echo ${D} | jq -r .ServerId`
 FirewallMgmtIndex=$(expr `echo ${D} | jq -r .FirewallMgmtIndex` + 0 )
