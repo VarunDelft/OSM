@@ -84,9 +84,9 @@ pipeline {
 				echo "${td}"
 				td = td.replace("__FIREWALL_EXT_IP__","${Ips[0]}")
 				td = td.replace("__SERVER_EXT_IP__","${Ips[2]}")
-				sh  "mkdir ${p.NS_NAME}"
-				writeFile file: "${p.NS_NAME}/Test/TestData.json", text:"${td}"
-				sh "git add ${p.NS_NAME}/Test/TestData.json"
+				sh  "mkdir InstanceSpecific/${p.NS_NAME}"
+				writeFile file: "InstanceSpecific/${p.NS_NAME}/Test/TestData.json", text:"${td}"
+				sh "git add InstanceSpecific/${p.NS_NAME}/Test/TestData.json"
 				sh "git commit -m 'From Create Instance pipeline'"
 				sh   "git config remote.origin.url https://github.com/prodaptconsulting/OSM.git"
 				sh "git config user.email 'jignesh.karnik@prodapt.com'"
