@@ -1,0 +1,9 @@
+{
+"FIREWALL_IP":"__FIREWALL_IP__",
+"SERVER_IP":"__SERVER_IP__",
+"CLIENT_IP":"__CLIENT_IP__",
+"CLIENT_UID":"cirros",
+"CLIENT_PWD":"cubswin:)",
+"SERVER_UID":"cirros",
+"SERVER_PWD":"gocubsgo"
+}
