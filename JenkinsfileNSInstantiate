@@ -62,10 +62,9 @@ pipeline {
 				VNFIPAddresses = sh(script: "Scripts/OSMNSGetIPs.sh '${ret}' '${p.OSM_IP_PORT}' ",returnStdout: true).trim()
 				echo "${VNFIPAddresses}"
 				Ips = "${VNFIPAddresses}".split(',')
-				echo $IPs[0]
-				echo $IPs[1]
-				echo $IPs[2]
-				echo $IPs[3]
+				for(int i=0; Ips.size();i++) {
+                    echo "${Ips[i]}"
+                }
 			}
 		}
 	}
