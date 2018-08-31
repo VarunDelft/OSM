@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    //def props = readJSON file: 'Test/TestData.json'
+    
 	def p = readJSON file : 'NSInstantiateConfig'
 	def cp = readJSON file : 'Data/ConfigData/OSMConfig.json'
 	def ret = 'abc'
@@ -81,8 +81,8 @@ pipeline {
 			echo "Prepare Instance specifc files" 
 			script{
 				td = readJSON file:  'Data/Templates/TestDataTemplate.json'
-				td = td.replace("__FIREWALL_EXT_IP__",${Ips[0]})
-				td = td.replace("__SERVER_EXT_IP__",${Ips[2]})
+				td = td.replace("__FIREWALL_EXT_IP__","${Ips[0]}")
+				td = td.replace("__SERVER_EXT_IP__","${Ips[2]}")
 				sh  "mkdir ${p.NS_NAME}"
 				writeFile file: "${p.NS_NAME}/Test/TestData.json", text:"${td}"
 				sh "git add ${p.NS_NAME}/Test/TestData.json"
