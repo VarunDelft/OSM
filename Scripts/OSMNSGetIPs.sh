@@ -33,8 +33,8 @@ return $RETURN_CODE
 # $2 = OSM IP address:Port
 # $3 = NSInstanceDetails
 
-#D=`cat  Data/OSMGetIPsData.json`
-D="{$3}"
+D=`cat  Data/GetIPsData.json`
+#D="{$3}"
 FirewallId=`echo ${D} | jq -r .FirewallId`
 ServerId=`echo ${D} | jq -r .ServerId`
 FirewallMgmtIndex=$(expr `echo ${D} | jq -r .FirewallMgmtIndex` + 0 )
