@@ -3,6 +3,7 @@ pipeline {
   environment {
     def props = readJSON file: 'Test/TestData.json'
 	def p = readJSON file : 'NSInstantiateConfig'
+	def cp = readJSON file : 'Data/ConfigData/OSMConfig.json'
 	def ret = 'abc'
 	def IPs = "A,B,C,D".split(',')
 	
@@ -13,9 +14,10 @@ pipeline {
       steps {
         script{
             p = readJSON file : 'NSInstantiateConfig' //properties
+			cp = readJSON file : 'Data/ConfigData/OSMConfig.json' //configuration file for current OSM instance
 			withCredentials([usernamePassword(credentialsId:'308b3738-d625-4d02-9b25-9dc73758265c', passwordVariable:'PASSWORD', usernameVariable:'USER')]) { 
 				
-				ret = sh(script: "Scripts/OSMAuthCode.sh ${p.OSM_IP_PORT} ${USER} ${PASSWORD}", returnStdout: true).trim()
+				ret = sh(script: "Scripts/OSMAuthCode.sh ${cp.OSM_IP_PORT_FOR_REST} ${USER} ${PASSWORD}", returnStdout: true).trim()
 			}
 		
         }
@@ -28,7 +30,7 @@ pipeline {
 			script{
 				
 				
-				NSid = sh(script: "Scripts/OSMNSCreate.sh '${ret}' '${p.OSM_IP_PORT}' '${p.NS_DESCRIPTOR_ID}' '${p.NS_NAME}' '${p.NS_DESCRIPTION}' '${p.OPEN_STACK_ACCOUNTID}'",returnStdout: true).trim()
+				NSid = sh(script: "Scripts/OSMNSCreate.sh '${ret}' '${cp.OSM_IP_PORT_FOR_REST}' '${p.NS_DESCRIPTOR_ID}' '${p.NS_NAME}' '${p.NS_DESCRIPTION}' '${cp.OPEN_STACK_ACCOUNTID}'",returnStdout: true).trim()
 				echo "${NSid}"
 			}
 		}
@@ -40,7 +42,7 @@ pipeline {
 			script{
 				
 				
-				NSInstanceID = sh(script: "Scripts/OSMNSInstantiate.sh '${ret}' '${p.OSM_IP_PORT}' '${p.NS_DESCRIPTOR_ID}' '${p.NS_NAME}' '${p.NS_DESCRIPTION}' '${p.OPEN_STACK_ACCOUNTID}' '${NSid}'",returnStdout: true).trim()
+				NSInstanceID = sh(script: "Scripts/OSMNSInstantiate.sh '${ret}' '${cp.OSM_IP_PORT_FOR_REST}' '${p.NS_DESCRIPTOR_ID}' '${p.NS_NAME}' '${p.NS_DESCRIPTION}' '${cp.OPEN_STACK_ACCOUNTID}' '${NSid}'",returnStdout: true).trim()
 				echo "${NSInstanceID}"
 			}
 		}
@@ -50,7 +52,7 @@ pipeline {
 		steps{
 			echo "Get NS Detials Stage" 
 			script{
-				NSDetailsJson = sh(script: "Scripts/OSMNSGetDetails.sh '${ret}' '${p.OSM_IP_PORT}' '${NSid}'",returnStdout: true).trim()
+				NSDetailsJson = sh(script: "Scripts/OSMNSGetDetails.sh '${ret}' '${cp.OSM_IP_PORT_FOR_REST}' '${NSid}'",returnStdout: true).trim()
 				writeFile file: "Data/GetIPsData.json", text:"${NSDetailsJson}"
 			}
 		}
@@ -59,7 +61,7 @@ pipeline {
 		steps{
 			echo "Get VNF Details" 
 			script{
-				VNFIPAddresses = sh(script: "Scripts/OSMNSGetIPs.sh '${ret}' '${p.OSM_IP_PORT}' ",returnStdout: true).trim()
+				VNFIPAddresses = sh(script: "Scripts/OSMNSGetIPs.sh '${ret}' '${cp.OSM_IP_PORT_FOR_REST}' ",returnStdout: true).trim()
 				echo "${VNFIPAddresses}"
 				Ips = "${VNFIPAddresses}".split(',')
 				echo "${Ips[0]}"

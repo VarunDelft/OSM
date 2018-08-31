@@ -1,0 +1,9 @@
+{
+"CLIENT_UID":"cirros",
+"CLIENT_PWD":"cubswin:)",
+"CLIENT_IP":"192.168.60.147",
+"SERVER_UID":"cirros",
+"SERVER_PWD":"gocubsgo",
+"OSM_IP_PORT_FOR_REST":"192.168.60.215:8989",
+"OPEN_STACK_ACCOUNTID":"913a0944-274f-4f18-bb3b-13df1fdbd162"
+}
