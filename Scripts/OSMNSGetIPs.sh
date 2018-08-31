@@ -1,5 +1,5 @@
 #!/bin/sh
-GetNSDetails(){
+GetIPs(){
 
 RETURN_CODE=0
 CURL_RETURN_CODE=0
@@ -14,7 +14,7 @@ else
     #echo $Abc
     RETURN_CODE=0
     #echo "${CURL_OUTPUT}"
-    Result=`echo ${CURL_OUTPUT} | jq .\"constituent-vnfr-ref\"`
+    Result=`echo ${CURL_OUTPUT} | jq .nsd.\"_admin\".\"projects_write\"[0]`
     Result=`echo ${Result} | sed "s/\"//g"`
     echo "$Result"
 fi
@@ -28,7 +28,7 @@ return $RETURN_CODE
 # $3 = Instance id of the network service
 
 
-NSDetails="$(GetNSDetails $1 $2 $3)"
+IPDetails="$(GetIPs $1 $2 $3)"
 RETURN_CODE=`echo $?`
 echo "${NSDetails}"
 exit $RETURN_CODE
