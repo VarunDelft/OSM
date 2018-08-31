@@ -66,6 +66,9 @@ pipeline {
 				echo "${Ips[2]"
 				echo "${Ips[3]"
 				echo "${Ips[4]"
+				
+				
+				
 			}
 		}
 	}
