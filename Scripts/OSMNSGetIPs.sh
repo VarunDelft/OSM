@@ -15,7 +15,7 @@ then
 else
     #echo $Abc
     #RETURN_CODE=0
-    #echo "${CURL_OUTPUT}"
+    echo "${CURL_OUTPUT}"
     #echo $4
     #echo $5
     InternalIP=`echo ${CURL_OUTPUT} | jq -r .vdur[0].interfaces[$4].\"ip-address\"`
