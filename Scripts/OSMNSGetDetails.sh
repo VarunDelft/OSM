@@ -33,11 +33,11 @@ else
     prv_index=`echo ${vlds} | jq 'map(."short-name" == "FwAndServerNs_prv_vld_1") | index(true)'`
     #echo "Mgmt network array index is $mgmt_index"
     #echo "Prv network array index is $prv_index"
-    #NSDetails1='\{"FirewallId":"${fw_id}","ServerId":"${server_id}","FirewallMgmtIndex":"${mgmt_index}","FirewallPrvIndex":"${prv_index}","ServerMgmtIndex":"${mgmt_index}","ServerPrvIndex":"${prv_index}"\}'
+    NSDetails1="{\"FirewallId\":$fw_id,\"ServerId\":${server_id},\"FirewallMgmtIndex\":\"${mgmt_index}\",\"FirewallPrvIndex\":\"${prv_index}\",\"ServerMgmtIndex\":\"${mgmt_index}\",\"ServerPrvIndex\":\"${prv_index}\"}"
    #abc='"aa":"${fw_id}"'
    abc=""
-    #echo $NSDetails1
-   echo "${abc}"
+    echo $NSDetails1
+   # echo "${abc}"
 fi
 return $RETURN_CODE
 }
