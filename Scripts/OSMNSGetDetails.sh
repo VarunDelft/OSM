@@ -18,7 +18,7 @@ then
 else
     #echo $Abc
     RETURN_CODE=0
-    echo "${CURL_OUTPUT}"
+    #echo "${CURL_OUTPUT}"
     const_vnfds=`echo ${CURL_OUTPUT} | jq .\"nsd\".\"constituent-vnfd\"`
     #echo "$const_vnfds"
     fw_index=`echo ${const_vnfds} | jq '.[] | select(."vnfd-id-ref" | contains("fw")) | ."member-vnf-index"' | sed "s/\"//g"`
