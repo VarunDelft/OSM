@@ -18,10 +18,10 @@ pipeline {
 	steps{
 		script{
 			InstanceNameJson = readJSON file: 'ChangeInstance'
-			InstannceName = InstanceNameJson.InstanceName
-			propsconfig = readJSON file: 'InstanceSpecific/${InstannceName}/FirewallConfig' 
+			InstanceName = InstanceNameJson.InstanceName
+			propsconfig = readJSON file: "InstanceSpecific/" + InstanceName + "/FirewallConfig"
 			cp = readJSON file: 'Data/ConfigData/OSMConfig.json'
-			props = readJSON file: 'InstanceSpecific/${InstannceName}/Test/TestData.json'
+			props = readJSON file: "InstanceSpecific/" + InstanceName + "/Test/TestData.json"
 		}
 		
 	}
@@ -61,7 +61,7 @@ pipeline {
         }
         success {
             echo 'I succeeeded!'
-          sh "git mv InstanceSpecific/${InstannceName} FirewallConfig InstanceSpecific/${InstannceName}/Archive/FirewallConfig_bk_`date '+%Y%m%d%H%M%S'`"
+          sh "git mv InstanceSpecific/${InstannceName} FirewallConfig InstanceSpecific/" + InstanceName +"/Archive/FirewallConfig_bk_`date '+%Y%m%d%H%M%S'`"
             sh "git commit -m 'abc'"
             sh   "git config remote.origin.url https://github.com/prodaptconsulting/OSM.git"
             sh "git config user.email 'jignesh.karnik@prodapt.com'"
