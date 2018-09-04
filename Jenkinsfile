@@ -14,7 +14,7 @@ pipeline {
  
   stages {
     
-	stage ('Build){
+	stage ('Build'){
 		script{
 			InstanceNameJson = readJSON file: 'ChangeInstance'
 			InstannceName = InstanceNameJson.InstanceName
