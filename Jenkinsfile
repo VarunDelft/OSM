@@ -48,7 +48,7 @@ pipeline {
     
     stage('Test') {
       steps {
-        sh "sshpass -p ${props.CLIENT_PWD} ssh  -o 'StrictHostKeyChecking=no' ${cp.CLIENT_UID}@${cp.CLIENT_IP} TestScripts/TestServerConnectivity.sh  ${props.FIREWALL_IP} ${propsconfig.mode} "        
+        sh "sshpass -p ${cp.CLIENT_PWD} ssh  -o 'StrictHostKeyChecking=no' ${cp.CLIENT_UID}@${cp.CLIENT_IP} TestScripts/TestServerConnectivity.sh  ${props.FIREWALL_IP} ${propsconfig.mode} "        
       }
     }
     
