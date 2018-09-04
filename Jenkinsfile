@@ -15,6 +15,7 @@ pipeline {
   stages {
     
 	stage ('Build'){
+	steps{
 		script{
 			InstanceNameJson = readJSON file: 'ChangeInstance'
 			InstannceName = InstanceNameJson.InstanceName
@@ -23,6 +24,7 @@ pipeline {
 			props = readJSON file: 'InstanceSpecific/${InstannceName}/Test/TestData.json'
 		}
 		
+	}
 	}
 	stage('Deploy') {
       steps {
