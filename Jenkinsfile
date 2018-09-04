@@ -1,17 +1,33 @@
 pipeline {
   agent any
   environment {
-    def props = readJSON file: 'Test/TestData.json'
-    def propsconfig = readJSON file: 'FirewallConfig'
+	
+    def props = "abc" //readJSON file: 'Test/TestData.json'
+    def InstanceNameJson = readJSON file: 'ChangeInstance'
+	def InstannceName = "abc"
+	def propsconfig = "abc"
+	def constants = "abc"
+	
   }
         
         
  
   stages {
-    stage('Deploy') {
+    
+	stage ('Build){
+		script{
+			InstanceNameJson = readJSON file: 'ChangeInstance'
+			InstannceName = InstanceNameJson.InstanceName
+			propsconfig = readJSON file: '${InstannceName}/FirewallConfig' 
+			cp = readJSON file: 'Data/ConfigData/OSMConfig.json'
+			props = readJSON file: '${InstannceName}/Test/TestData.json'
+		}
+		
+	}
+	stage('Deploy') {
       steps {
         script{
-            propsconfig = readJSON file: 'FirewallConfig' 
+            
             
         }
         sh "bash  ./Scripts/ManageFirewallRule.sh ${propsconfig.FirewallIP}  ${propsconfig.ServerIP} ${propsconfig.mode}"
@@ -23,18 +39,18 @@ pipeline {
     stage('Prepare For Test') {
       steps{
         script{
-          props = readJSON file: 'Test/TestData.json'
-          props.CLIENT_PWD = "\'" + props.CLIENT_PWD + "\'"
+          
+          cp.CLIENT_PWD = "\'" + cp.CLIENT_PWD + "\'"
         }
         
-        sh "sshpass -p ${props.CLIENT_PWD} scp  -o 'StrictHostKeyChecking=no' Test/TestServerConnectivity.sh ${props.CLIENT_UID}@${props.CLIENT_IP}:TestScripts/TestServerConnectivity.sh"
-        sh "sshpass -p ${props.SERVER_PWD} ssh  -f -o 'StrictHostKeyChecking=no' ${props.SERVER_UID}@${props.SERVER_IP} webserver/StartWebServerOneTimeListen.sh"        
+        sh "sshpass -p ${cp.CLIENT_PWD} scp  -o 'StrictHostKeyChecking=no' Scripts/TestServerConnectivity.sh ${cp.CLIENT_UID}@${cp.CLIENT_IP}:TestScripts/TestServerConnectivity.sh"
+        sh "sshpass -p ${cp.SERVER_PWD} ssh  -f -o 'StrictHostKeyChecking=no' ${cp.SERVER_UID}@${props.SERVER_IP} webserver/StartWebServerOneTimeListen.sh"        
       }
     }
     
     stage('Test') {
       steps {
-        sh "sshpass -p ${props.CLIENT_PWD} ssh  -o 'StrictHostKeyChecking=no' ${props.CLIENT_UID}@${props.CLIENT_IP} TestScripts/TestServerConnectivity.sh  ${props.FIREWALL_IP} ${propsconfig.mode} "        
+        sh "sshpass -p ${props.CLIENT_PWD} ssh  -o 'StrictHostKeyChecking=no' ${cp.CLIENT_UID}@${cp.CLIENT_IP} TestScripts/TestServerConnectivity.sh  ${props.FIREWALL_IP} ${propsconfig.mode} "        
       }
     }
     
