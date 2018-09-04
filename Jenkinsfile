@@ -28,11 +28,7 @@ pipeline {
 	}
 	stage('Deploy') {
       steps {
-        script{
-            
-            
-        }
-        sh "bash  ./Scripts/ManageFirewallRule.sh ${propsconfig.FirewallIP}  ${propsconfig.ServerIP} ${propsconfig.mode}"
+           sh "bash  ./Scripts/ManageFirewallRule.sh ${propsconfig.FirewallIP}  ${propsconfig.ServerIP} ${propsconfig.mode}"
         
       }
     }
