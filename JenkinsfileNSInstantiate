@@ -12,6 +12,7 @@ pipeline {
   }
  stages{
 stage('Run if expression ') {
+	echo NsConfigFilePresent
     when {
         expression { NsConfigFilePresent == true }
     }  
