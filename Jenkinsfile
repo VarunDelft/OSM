@@ -4,7 +4,7 @@ pipeline {
 	
     def props = "abc" //readJSON file: 'Test/TestData.json'
     def InstanceNameJson = "abc"
-	def ChangeParentExists = fileExists 'ChangeInstance'
+	boolean ChangeParentExists = fileExists 'ChangeInstance'
 	//def InstanceName = "abc"
 	def propsconfig = "abc"
 	def constants = "abc"
