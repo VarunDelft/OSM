@@ -63,9 +63,29 @@ stage('Run if expression ') {
 				NSDetailsJson = sh(script: "Scripts/OSMNSGetDetails.sh '${ret}' '${cp.OSM_IP_PORT_FOR_REST}' '${NSid}'",returnStdout: true).trim()
 				writeFile file: "Data/GetIPsData.json", text:"${NSDetailsJson}"
 				echo "${NSDetailsJson}"
+				     echo "Testing the ${browsers[i]} browser"
+				
 			}
 		}
 	}
+	
+	stage('Wait for NS to be Ready'){
+		steps{
+			echo "Wait for NS to be Ready" 
+			timeout(5){
+				waituntil{
+					script{
+						def r = sh(script: "Scripts/OSMNSGetStatus.sh '${ret}' '${cp.OSM_IP_PORT_FOR_REST}' '${NSid}'",returnStdout: true).trim()
+						return ( r == 'Ready' )
+					}
+				}
+			}
+			
+		}
+		
+	}
+	
+	
 	stage('Get VNF Details'){
 		steps{
 			echo "Get VNF Details" 
