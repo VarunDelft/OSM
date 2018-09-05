@@ -11,7 +11,7 @@ pipeline {
 	
   }
         
-  
+stages{
 stage('Run if expression ') {
     when {
         expression { ChangeParentExists != false }
@@ -91,5 +91,6 @@ stage('Run if expression ') {
             echo 'Things were different before...'
         }
     }
+}
 }
 }
