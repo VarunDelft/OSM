@@ -18,8 +18,10 @@ pipeline {
 	stage ('Build'){
 	steps{
 		script{
-			if (ChangeParentExists){
-				echo ChangeParentExists
+			def files = findFiles glob: 'ChangeInstance'
+			boolean exists = files.length > 0	
+			if (exists){
+				echo exists
 				InstanceNameJson = readJSON file: 'ChangeInstance'
 				InstanceName = InstanceNameJson.InstanceName
 				propsconfig = readJSON file: "InstanceSpecific/" + InstanceName + "/FirewallConfig"
