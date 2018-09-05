@@ -18,7 +18,7 @@ pipeline {
 	stage ('Build'){
 	steps{
 		script{
-			if (ChangeParentExists){
+			if ((ChangeParentExists)){
 				echo ChangeParentExists
 				InstanceNameJson = readJSON file: 'ChangeInstance'
 				InstanceName = InstanceNameJson.InstanceName
