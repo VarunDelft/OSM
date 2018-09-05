@@ -35,9 +35,11 @@ pipeline {
 			}
 		}
 		
-	}
+		
 	}
 	return
+	}
+	
 	stage('Deploy') {
       steps {
            sh "bash  ./Scripts/ManageFirewallRule.sh ${props.FIREWALL_IP}  ${props.SERVER_INT_IP} ${propsconfig.mode}"
