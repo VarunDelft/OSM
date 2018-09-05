@@ -71,7 +71,7 @@ stage('Run if expression ') {
 	stage('Wait for NS to be Ready'){
 		steps{
 			echo "Wait for NS to be Ready" 
-			timeout(11){
+			timeout(30){
 				//waitUntil{
 					script{
 						def r = sh(script: "Scripts/OSMNSGetStatus.sh '${ret}' '${cp.OSM_IP_PORT_FOR_REST}' '${NSid}'",returnStdout: true).trim()
