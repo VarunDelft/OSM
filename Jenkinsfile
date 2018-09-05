@@ -35,9 +35,9 @@ pipeline {
 			}
 		}
 		
-		
-	}
 	return
+	}
+	
 	}
 	
 	stage('Deploy') {
