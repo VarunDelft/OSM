@@ -44,7 +44,7 @@ do
 	NSDetails="$(GetStatus $1 $2 $3)"
 	echo "iteration ${i}"
 	echo "======================================================================================================================"
-	echo "${NSDetails}"
+	echo "${NSDetails}" 
 	sleep 1m
 done
 

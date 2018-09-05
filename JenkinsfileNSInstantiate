@@ -134,7 +134,7 @@ stage('Run if expression ') {
            /* deleteDir() /* clean up our workspace */
         }
         success {
-            echo 'I succeeeded!'
+            echo 'I succeeeded!' 
             sh "git mv NSInstantiateConfig Archive/NSInstantiateConfig_`date '+%Y%m%d%H%M%S'`"
             sh "git commit -m 'From Manage firewall pipeline'`date '+%Y%m%d%H%M%S'`"
             sh   "git config remote.origin.url https://github.com/prodaptconsulting/OSM.git"
