@@ -71,13 +71,14 @@ stage('Run if expression ') {
 	stage('Wait for NS to be Ready'){
 		steps{
 			echo "Wait for NS to be Ready" 
-			timeout(5){
-				waitUntil{
+			timeout(11){
+				//waitUntil{
 					script{
 						def r = sh(script: "Scripts/OSMNSGetStatus.sh '${ret}' '${cp.OSM_IP_PORT_FOR_REST}' '${NSid}'",returnStdout: true).trim()
-						return ( r == 'Ready' )
+						//return ( r == 'Ready' )
+						echo "${r}"
 					}
-				}
+				//}
 			}
 			
 		}
@@ -134,7 +135,7 @@ stage('Run if expression ') {
         }
         success {
             echo 'I succeeeded!'
-            sh "git mv NSInstantiateConfig /Archive/NSInstantiateConfig_`date '+%Y%m%d%H%M%S'`"
+            sh "git mv NSInstantiateConfig Archive/NSInstantiateConfig_`date '+%Y%m%d%H%M%S'`"
             sh "git commit -m 'From Manage firewall pipeline'`date '+%Y%m%d%H%M%S'`"
             sh   "git config remote.origin.url https://github.com/prodaptconsulting/OSM.git"
             sh "git config user.email 'jignesh.karnik@prodapt.com'"
