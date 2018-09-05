@@ -19,6 +19,7 @@ pipeline {
 	steps{
 		script{
 			if (ChangeParentExists){
+				echo 'here'
 				InstanceNameJson = readJSON file: 'ChangeInstance'
 				InstanceName = InstanceNameJson.InstanceName
 				propsconfig = readJSON file: "InstanceSpecific/" + InstanceName + "/FirewallConfig"
