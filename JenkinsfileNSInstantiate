@@ -6,7 +6,7 @@ pipeline {
 	def cp = readJSON file : 'Data/ConfigData/OSMConfig.json'
 	def ret = 'abc'
 	def IPs = "A,B,C,D".split(',')
-	def td = readJSON file:  'Data/Templates/TestDataTemplate.json'
+	def td = readJSON file:  'Data/Templates/InstanceDataTemplate.json'
 	
   }
  
