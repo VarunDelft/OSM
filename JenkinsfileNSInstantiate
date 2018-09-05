@@ -63,7 +63,6 @@ stage('Run if expression ') {
 				NSDetailsJson = sh(script: "Scripts/OSMNSGetDetails.sh '${ret}' '${cp.OSM_IP_PORT_FOR_REST}' '${NSid}'",returnStdout: true).trim()
 				writeFile file: "Data/GetIPsData.json", text:"${NSDetailsJson}"
 				echo "${NSDetailsJson}"
-				     echo "Testing the ${browsers[i]} browser"
 				
 			}
 		}
