@@ -30,12 +30,12 @@ pipeline {
 			}
 			else{
 				echo 'ParentChange file does not exist. No changes are requested. Existing the pipeline'
-				return
+				exit 0
 				
 			}
 		}
 		
-	return
+	
 	}
 	
 	}
