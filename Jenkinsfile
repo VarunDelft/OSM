@@ -4,7 +4,7 @@ pipeline {
 	
     def props = "abc" //readJSON file: 'Test/TestData.json'
     def InstanceNameJson = readJSON file: 'ChangeInstance'
-	def InstannceName = "abc"
+	//def InstanceName = "abc"
 	def propsconfig = "abc"
 	def constants = "abc"
 	
@@ -61,7 +61,7 @@ pipeline {
         }
         success {
             echo 'I succeeeded!'
-          sh "git mv InstanceSpecific/${InstannceName} FirewallConfig InstanceSpecific/" + InstanceName +"/Archive/FirewallConfig_bk_`date '+%Y%m%d%H%M%S'`"
+          sh "git mv InstanceSpecific/" + InstanceName +"/FirewallConfig InstanceSpecific/" + InstanceName +"/Archive/FirewallConfig_bk_`date '+%Y%m%d%H%M%S'`"
             sh "git commit -m 'abc'"
             sh   "git config remote.origin.url https://github.com/prodaptconsulting/OSM.git"
             sh "git config user.email 'jignesh.karnik@prodapt.com'"
