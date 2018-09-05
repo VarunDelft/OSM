@@ -11,16 +11,18 @@ pipeline {
 	
   }
         
-        
+  
+stage('Run if expression ') {
+    when {
+        expression { ChangeParentExists != false }
+    }  
  
   stages {
     
 	stage ('Build'){
 	steps{
 		script{
-			def files = findFiles glob: 'ChangeInstance'
-			boolean exists = files.length > 0	
-			if (exists){
+			
 				echo exists
 				InstanceNameJson = readJSON file: 'ChangeInstance'
 				InstanceName = InstanceNameJson.InstanceName
@@ -28,17 +30,13 @@ pipeline {
 				cp = readJSON file: 'Data/ConfigData/OSMConfig.json'
 				props = readJSON file: "InstanceSpecific/" + InstanceName + "/Data/InstanceData.json"
 			}
-			else{
-				echo 'ParentChange file does not exist. No changes are requested. Existing the pipeline'
-				return
-				
-			}
+			
 		}
 		
 	
 	}
 	
-	}
+	
 	
 	
 	stage('Deploy') {
@@ -93,4 +91,5 @@ pipeline {
             echo 'Things were different before...'
         }
     }
+}
 }
