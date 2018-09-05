@@ -3,7 +3,8 @@ pipeline {
   environment {
 	
     def props = "abc" //readJSON file: 'Test/TestData.json'
-    def InstanceNameJson = readJSON file: 'ChangeInstance'
+    def InstanceNameJson = "abc"
+	def ChangeParentExists = fileExists 'ChangeInstance'
 	//def InstanceName = "abc"
 	def propsconfig = "abc"
 	def constants = "abc"
@@ -17,11 +18,18 @@ pipeline {
 	stage ('Build'){
 	steps{
 		script{
-			InstanceNameJson = readJSON file: 'ChangeInstance'
-			InstanceName = InstanceNameJson.InstanceName
-			propsconfig = readJSON file: "InstanceSpecific/" + InstanceName + "/FirewallConfig"
-			cp = readJSON file: 'Data/ConfigData/OSMConfig.json'
-			props = readJSON file: "InstanceSpecific/" + InstanceName + "/Data/InstanceData.json"
+			if (ChangeParentExists){
+				InstanceNameJson = readJSON file: 'ChangeInstance'
+				InstanceName = InstanceNameJson.InstanceName
+				propsconfig = readJSON file: "InstanceSpecific/" + InstanceName + "/FirewallConfig"
+				cp = readJSON file: 'Data/ConfigData/OSMConfig.json'
+				props = readJSON file: "InstanceSpecific/" + InstanceName + "/Data/InstanceData.json"
+			}
+			else{
+				echo 'ParentChange file does not exist. No changes are requested. Existing the pipeline'
+				return
+				
+			}
 		}
 		
 	}
