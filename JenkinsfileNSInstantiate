@@ -2,14 +2,19 @@ pipeline {
   agent any
   environment {
     
-	def p = readJSON file : 'NSInstantiateConfig'
+	def p = 'abc'
+	boolean NsConfigFilePresent = fileExists 'NSInstantiateConfig'
 	def cp = readJSON file : 'Data/ConfigData/OSMConfig.json'
 	def ret = 'abc'
 	def IPs = "A,B,C,D".split(',')
 	def td = readJSON file:  'Data/Templates/InstanceDataTemplate.json'
 	
   }
- 
+ stages{
+stage('Run if expression ') {
+    when {
+        expression { NsConfigFilePresent == true }
+    }  
   stages {
     stage('GetAuth') {
       steps {
@@ -120,4 +125,6 @@ pipeline {
             echo 'Things were different before...'
         }
     }
+}
+ }
 }
