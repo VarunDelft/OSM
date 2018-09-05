@@ -29,20 +29,20 @@ return $RETURN_CODE
 # $2 = OSM IP address:Port
 # $3 = Instance id of the network service
 
-for i in {1..12}
+for i in `seq 1 12`
 do
 	NSDetails="$(GetStatus $1 $2 $3)"
-	echo "iteration ${i}"
+	echo "iteration $i"
 	echo "======================================================================================================================"
 	echo "${NSDetails}"
 	sleep 5s
 done
 
 
-for i in {13..21}
+for i in `seq 1 10`
 do
 	NSDetails="$(GetStatus $1 $2 $3)"
-	echo "iteration ${i}"
+	echo "iteration $i"
 	echo "======================================================================================================================"
 	echo "${NSDetails}" 
 	sleep 1m

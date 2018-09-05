@@ -115,6 +115,7 @@ stage('Run if expression ') {
 				td = td.replace("__SERVER_INT_IP__","${Ips[3]}")
 				sh  "mkdir InstanceSpecific/${p.NS_NAME}"
 				writeFile file: "InstanceSpecific/${p.NS_NAME}/Data/InstanceData.json", text:"${td}"
+				sh "git mv NSInstantiateConfig Archive/NSInstantiateConfig_`date '+%Y%m%d%H%M%S'`"
 				sh "git add InstanceSpecific/${p.NS_NAME}/Data/InstanceData.json"
 				sh "git commit -m 'From Create Instance pipeline'"
 				sh   "git config remote.origin.url https://github.com/prodaptconsulting/OSM.git"
@@ -135,12 +136,12 @@ stage('Run if expression ') {
         }
         success {
             echo 'I succeeeded!' 
-            sh "git mv NSInstantiateConfig Archive/NSInstantiateConfig_`date '+%Y%m%d%H%M%S'`"
-            sh "git commit -m 'From Manage firewall pipeline'`date '+%Y%m%d%H%M%S'`"
-            sh   "git config remote.origin.url https://github.com/prodaptconsulting/OSM.git"
-            sh "git config user.email 'jignesh.karnik@prodapt.com'"
-            sh "git config user.name 'prodaptconsulting'"
-            sh "git push 'https://prodaptconsulting:thisisgitadmin789\$@github.com/prodaptconsulting/OSM.git' master"
+            //sh "git mv NSInstantiateConfig Archive/NSInstantiateConfig_`date '+%Y%m%d%H%M%S'`"
+            //sh "git commit -m 'From Manage firewall pipeline'`date '+%Y%m%d%H%M%S'`"
+            ///sh   "git config remote.origin.url https://github.com/prodaptconsulting/OSM.git"
+            //sh "git config user.email 'jignesh.karnik@prodapt.com'"
+            //sh "git config user.name 'prodaptconsulting'"
+            //sh "git push 'https://prodaptconsulting:thisisgitadmin789\$@github.com/prodaptconsulting/OSM.git' master"
 
          
         }
