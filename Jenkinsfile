@@ -12,27 +12,25 @@ pipeline {
   }
         
         
- if ((ChangeParentExists))
-	{
-		echo "d"
-	}
-	else{
-		return
-	}
-	
+ 
   stages {
     
 	stage ('Build'){
 	steps{
 		script{
-			
+			if (ChangeParentExists){
 				echo ChangeParentExists
 				InstanceNameJson = readJSON file: 'ChangeInstance'
 				InstanceName = InstanceNameJson.InstanceName
 				propsconfig = readJSON file: "InstanceSpecific/" + InstanceName + "/FirewallConfig"
 				cp = readJSON file: 'Data/ConfigData/OSMConfig.json'
 				props = readJSON file: "InstanceSpecific/" + InstanceName + "/Data/InstanceData.json"
-			
+			}
+			else{
+				echo 'ParentChange file does not exist. No changes are requested. Existing the pipeline'
+				return
+				
+			}
 		}
 		
 	}
