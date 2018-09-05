@@ -23,7 +23,6 @@ stage('Run if expression ') {
 	steps{
 		script{
 			
-				echo exists
 				InstanceNameJson = readJSON file: 'ChangeInstance'
 				InstanceName = InstanceNameJson.InstanceName
 				propsconfig = readJSON file: "InstanceSpecific/" + InstanceName + "/FirewallConfig"
@@ -66,7 +65,8 @@ stage('Run if expression ') {
     }
     
   }
-  
+  }
+}
     post {
         always {
             echo 'One way or another, I have finished'
@@ -91,6 +91,5 @@ stage('Run if expression ') {
             echo 'Things were different before...'
         }
     }
-}
-}
+
 }
