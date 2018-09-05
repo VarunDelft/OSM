@@ -12,15 +12,16 @@ pipeline {
   }
         
         
- 
-  stages {
-    if ((ChangeParentExists))
+ if ((ChangeParentExists))
 	{
 		echo "d"
 	}
 	else{
 		return
 	}
+	
+  stages {
+    
 	stage ('Build'){
 	steps{
 		script{
