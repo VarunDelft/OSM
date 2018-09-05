@@ -74,7 +74,7 @@ stage('Run if expression ') {
         success {
             echo 'I succeeeded!'
             sh "git mv InstanceSpecific/" + InstanceName +"/FirewallConfig InstanceSpecific/" + InstanceName +"/Archive/FirewallConfig_bk_`date '+%Y%m%d%H%M%S'`"
-            sh "git commit -m 'abc'"
+            sh "git commit -m 'From Manage firewall pipeline'`date '+%Y%m%d%H%M%S'`"
             sh   "git config remote.origin.url https://github.com/prodaptconsulting/OSM.git"
             sh "git config user.email 'jignesh.karnik@prodapt.com'"
             sh "git config user.name 'prodaptconsulting'"
