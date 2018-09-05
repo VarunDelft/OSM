@@ -14,7 +14,7 @@ pipeline {
 stages{
 stage('Run if expression ') {
     when {
-        expression { ChangeParentExists == true }
+        expression {(fileExists('ChangeInstance')) }
     }  
  
   stages {
