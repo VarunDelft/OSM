@@ -3,12 +3,8 @@ pipeline {
   environment {
     
 	def p = 'abc'
-	boolean NsConfigFilePresent
-	script{
-		  NsConfigFilePresent = fileExists 'NSInstantiateConfig'
-	}
-	
-	//boolean NsConfigFilePresent = fileExists 'NSInstantiateConfig'
+	boolean NsConfigFilePresent =  fileExists 'NSInstantiateConfig'
+
 	def cp = readJSON file : 'Data/ConfigData/OSMConfig.json'
 	def ret = 'abc'
 	def IPs = "A,B,C,D".split(',')
@@ -19,7 +15,7 @@ pipeline {
 stage('Run if expression ') {
 	
     when {
-        expression { NsConfigFilePresent == true }
+        expression { (fileExists('NSInstantiateConfig')) }
     }  
   stages {
     stage('GetAuth') {
