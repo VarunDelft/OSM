@@ -64,8 +64,7 @@ stage('Run if expression ') {
       }
     }
     
-  }
-  }
+  
 }
     post {
         always {
@@ -74,7 +73,7 @@ stage('Run if expression ') {
         }
         success {
             echo 'I succeeeded!'
-          sh "git mv InstanceSpecific/" + InstanceName +"/FirewallConfig InstanceSpecific/" + InstanceName +"/Archive/FirewallConfig_bk_`date '+%Y%m%d%H%M%S'`"
+            sh "git mv InstanceSpecific/" + InstanceName +"/FirewallConfig InstanceSpecific/" + InstanceName +"/Archive/FirewallConfig_bk_`date '+%Y%m%d%H%M%S'`"
             sh "git commit -m 'abc'"
             sh   "git config remote.origin.url https://github.com/prodaptconsulting/OSM.git"
             sh "git config user.email 'jignesh.karnik@prodapt.com'"
@@ -91,5 +90,6 @@ stage('Run if expression ') {
             echo 'Things were different before...'
         }
     }
-
+}
+  }
 }
